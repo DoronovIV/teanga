@@ -1,0 +1,8 @@
+**/node_modules/
+**/dist/
+**/test/
+**/.angular/
+**/db/
+**/*.db
+**/.env
+**/todo.md
