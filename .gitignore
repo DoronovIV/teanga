@@ -2,7 +2,6 @@
 **/dist/
 **/test/
 **/.angular/
-**/db/
 **/*.db
 **/.env
 **/todo.md
