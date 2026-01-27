@@ -1,0 +1,13 @@
+CREATE TABLE IF NOT EXISTS words (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    FOREIGN KEY(language_id) REFERENCES language(id),
+    time DATETIME DEFAULT CURRENT_TIMESTAMP,
+    value TEXT NOT NULL,
+    translations TEXT DEFAULT NULL,
+    definition TEXT DEFAULT NULL,
+    class TEXT DEFAULT NULL,
+    is_formal INTEGER DEFAULT 0,
+    infinitive TEXT DEFAULT NULL,
+    synonyms TEXT DEFAULT NULL,
+    antonyms TEXT DEFAULT NULL
+);
