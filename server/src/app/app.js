@@ -13,6 +13,8 @@ fastify.register(languageRoutes, { prefix: '/api/v1/languages' });
 fastify.listen({ port }, async (err) => {
     if (err) {
         fastify.log.error(err);
+
+        // eslint-disable-next-line no-undef
         process.exit(1);
     }
 });

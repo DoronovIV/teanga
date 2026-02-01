@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-undef
 const homeDir = process.env.HOME || 'Home variable not found';
 const configDir = `${homeDir}/.config/teanga`;
 const devConfigDir = `${configDir}/.dev`;
