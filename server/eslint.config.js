@@ -23,6 +23,10 @@ export default defineConfig([
             'no-var': 'error',
             'no-unassigned-vars': 'error',
             'prefer-const': 'error',
+            'no-magic-numbers': 'error',
+            'no-return-assign': 'error',
+            'no-ternary': 'error',
+            'sort-imports': 'error',
         },
     },
 ]);

@@ -2,6 +2,7 @@ import Fastify from 'fastify';
 import { config } from './config.js';
 import { routes as languageRoutes } from './routes/language.routes.js';
 
+const errorExitCode = 1;
 const { port } = config;
 
 const fastify = Fastify({
@@ -15,6 +16,6 @@ fastify.listen({ port }, async (err) => {
         fastify.log.error(err);
 
         // eslint-disable-next-line no-undef
-        process.exit(1);
+        process.exit(errorExitCode);
     }
 });
