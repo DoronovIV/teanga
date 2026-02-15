@@ -17,6 +17,7 @@
     "devDependencies": {
         "better-sqlite3": "^12.6.2",
         "eslint": "^9.39.2",
+        "eslint-plugin-import": "^2.32.0",
         "prettier": "^3.8.1"
     }
 }

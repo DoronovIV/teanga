@@ -22,6 +22,7 @@ export default defineConfig([
             eqeqeq: 'error',
             'no-empty': 'error',
             'no-inline-comments': 'error',
+            'no-undef': 'error',
             'no-unused-vars': 'error',
             'no-debugger': 'error',
             'no-duplicate-case': 'error',
@@ -33,7 +34,6 @@ export default defineConfig([
             'no-magic-numbers': ['error', { ignore: [0, 1] }],
             'no-return-assign': 'error',
             'no-ternary': 'error',
-            'sort-imports': 'off',
 
             'import/order': [
                 'error',

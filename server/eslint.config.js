@@ -16,6 +16,7 @@ export default defineConfig([
             'no-empty': 'error',
             'no-inline-comments': 'error',
             'no-unused-vars': 'error',
+            'no-undef': 'error',
             'no-debugger': 'error',
             'no-duplicate-case': 'error',
             'no-duplicate-imports': 'error',
@@ -23,10 +24,21 @@ export default defineConfig([
             'no-var': 'error',
             'no-unassigned-vars': 'error',
             'prefer-const': 'error',
-            'no-magic-numbers': 'error',
             'no-return-assign': 'error',
             'no-ternary': 'error',
-            'sort-imports': 'error',
+            'no-magic-numbers': ['error', { ignore: [0, 1] }],
+
+            'import/order': [
+                'error',
+                {
+                    groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
+                    'newlines-between': 'always',
+                    alphabetize: {
+                        order: 'asc',
+                        caseInsensitive: false,
+                    },
+                },
+            ],
         },
     },
 ]);
