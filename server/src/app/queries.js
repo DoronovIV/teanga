@@ -14,10 +14,7 @@ export const queries = {
                 notes DEFAULT NULL
             );
         `,
-        insert: `
-            INSERT INTO languages (iso_name, set_1, set_2, set_3, scope, type, endonyms, other_names, notes)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
-        `,
+        delete: 'DELETE FROM languages WHERE id = ?;',
         selectAll: 'SELECT * FROM languages;',
         selectById: 'SELECT * FROM languages WHERE id = ?;',
     },
