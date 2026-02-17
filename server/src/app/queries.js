@@ -18,6 +18,8 @@ export const queries = {
             INSERT INTO languages (iso_name, set_1, set_2, set_3, scope, type, endonyms, other_names, notes)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
         `,
+        selectAll: 'SELECT * FROM languages;',
+        selectById: 'SELECT * FROM languages WHERE id = ?;',
     },
     words: {
         create: `

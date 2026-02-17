@@ -1,6 +1,8 @@
 import Fastify from 'fastify';
+
 import { config } from './config.js';
-import { routes as languageRoutes } from './routes/language.routes.js';
+import { routes as languageRoutes } from './routes/language.js';
+import { closeAll } from './service/db.js';
 
 const errorExitCode = 1;
 const { port } = config;
@@ -10,6 +12,11 @@ const fastify = Fastify({
 });
 
 fastify.register(languageRoutes, { prefix: '/api/v1/languages' });
+
+fastify.addHook('onClose', async (instance, done) => {
+    closeAll();
+    done();
+});
 
 fastify.listen({ port }, async (err) => {
     if (err) {

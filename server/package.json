@@ -8,6 +8,8 @@
     "main": "./src/index.js",
     "scripts": {
         "start": "node ./src/index.js",
+        "setup": "node ./src/app/setup.js",
+        "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
         "format": "prettier --write ./src/",
         "lint": "eslint --fix ./src"
     },
@@ -15,9 +17,11 @@
         "fastify": "^5.7.1"
     },
     "devDependencies": {
+        "@jest/globals": "^30.2.0",
         "better-sqlite3": "^12.6.2",
         "eslint": "^9.39.2",
         "eslint-plugin-import": "^2.32.0",
+        "jest": "^30.2.0",
         "prettier": "^3.8.1"
     }
 }

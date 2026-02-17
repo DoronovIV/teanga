@@ -1,9 +1,10 @@
-import { defineConfig } from 'eslint/config';
 import js from '@eslint/js';
+import { defineConfig } from 'eslint/config';
+import importPlugin from 'eslint-plugin-import';
 
 export default defineConfig([
     {
-        plugins: { js },
+        plugins: { js, import: importPlugin },
         extends: ['js/recommended'],
         files: ['**/*.js'],
         ignores: ['**/node_modules/', '**/.angular/', '**/dist/', '**/.git/'],

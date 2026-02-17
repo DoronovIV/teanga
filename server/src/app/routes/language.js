@@ -4,7 +4,7 @@ import {
     createLanguage,
     updateLanguage,
     deleteLanguage,
-} from '../controllers/language.controller.js';
+} from '../controllers/language.js';
 
 export async function routes(fastify) {
     fastify.get('/', getAllLanguages);
