@@ -1,9 +1,10 @@
 import Database from 'better-sqlite3';
 
 import { config } from '../config.js';
+import { insert } from '../models/language/language.js';
 import { queries } from '../queries.js';
 
-const data = [
+const languages = [
     {
         iso_name: 'English',
         set_1: 'en',
@@ -12,8 +13,6 @@ const data = [
         scope: 'Individual',
         type: 'Living',
         endonyms: 'English',
-        other_names: null,
-        notes: null,
     },
     {
         iso_name: 'German',
@@ -23,8 +22,6 @@ const data = [
         scope: 'Individual',
         type: 'Living',
         endonyms: 'Deutsch',
-        other_names: null,
-        notes: null,
     },
 ];
 
@@ -35,14 +32,11 @@ export function init() {
     const db = new Database(config.databases.dev.setup);
 
     db.exec(queries.languages.create);
-    seed(db);
-    db.close();
-}
+    db.exec(queries.words.create);
 
-function seed(db) {
-    const insert = db.prepare(queries.languages.insert);
-
-    data.forEach((language) => {
-        insert.run(Object.values(language));
+    languages.forEach((language) => {
+        insert(language);
     });
+
+    db.close();
 }
