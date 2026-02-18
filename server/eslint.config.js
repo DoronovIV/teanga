@@ -1,0 +1,45 @@
+import js from '@eslint/js';
+import { defineConfig } from 'eslint/config';
+import importPlugin from 'eslint-plugin-import';
+
+export default defineConfig([
+    {
+        plugins: { js, import: importPlugin },
+        extends: ['js/recommended'],
+        files: ['**/*.js'],
+        ignores: ['**/node_modules/', '**/.angular/', '**/dist/', '**/.git/'],
+        rules: {
+            'array-callback-return': 'error',
+            'arrow-body-style': 'always',
+            'default-case': 'error',
+            'default-case-last': 'error',
+            eqeqeq: 'error',
+            'no-empty': 'error',
+            'no-inline-comments': 'error',
+            'no-unused-vars': 'error',
+            'no-undef': 'error',
+            'no-debugger': 'error',
+            'no-duplicate-case': 'error',
+            'no-duplicate-imports': 'error',
+            'no-ex-assign': 'error',
+            'no-var': 'error',
+            'no-unassigned-vars': 'error',
+            'prefer-const': 'error',
+            'no-return-assign': 'error',
+            'no-ternary': 'error',
+            'no-magic-numbers': ['error', { ignore: [0, 1] }],
+
+            'import/order': [
+                'error',
+                {
+                    groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
+                    'newlines-between': 'always',
+                    alphabetize: {
+                        order: 'asc',
+                        caseInsensitive: false,
+                    },
+                },
+            ],
+        },
+    },
+]);
