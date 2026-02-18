@@ -1,5 +1,5 @@
-import { queries } from '../queries.js';
-import { dev } from '../service/db.js';
+import { queries } from '../../queries.js';
+import { dev } from '../../service/db.js';
 
 const db = dev.setup;
 
@@ -8,7 +8,7 @@ export function getAll() {
 }
 
 export function getById(id) {
-    return db.prepare(queries.languages.selectById).get(id);
+    return db.prepare(queries.languages.selectById).get(id) ?? null;
 }
 
 /**
