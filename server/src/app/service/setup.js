@@ -1,8 +1,9 @@
-import Database from 'better-sqlite3';
-
-import { config } from '../config.js';
 import { insert } from '../models/language/language.js';
 import { queries } from '../queries.js';
+
+import { dev, closeAll } from './db.js';
+
+const db = dev().setup;
 
 const languages = [
     {
@@ -29,8 +30,6 @@ const languages = [
  * Create language table and seed with initial data
  */
 export function init() {
-    const db = new Database(config.databases.dev.setup);
-
     db.exec(queries.languages.create);
     db.exec(queries.words.create);
 
@@ -38,5 +37,5 @@ export function init() {
         insert(language);
     });
 
-    db.close();
+    closeAll();
 }

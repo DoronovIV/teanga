@@ -1,7 +1,7 @@
 import { queries } from '../../queries.js';
 import { dev } from '../../service/db.js';
 
-const db = dev.setup;
+const db = dev().setup;
 
 export function getAll() {
     return db.prepare(queries.languages.selectAll).all();

@@ -1,9 +1,9 @@
-import { afterAll, describe, expect, test } from '@jest/globals';
+import { afterAll, beforeAll, describe, expect, test } from '@jest/globals';
 
-import { closeAll } from '../service/db.js';
+import { closeAll } from '../../service/db.js';
+import { init } from '../../service/setup.js';
 
 import { getAll, getById, insert, remove, update } from './language.js';
-
 import { languageMock } from './language.mock.js';
 
 const metaLanguage = {
@@ -12,6 +12,10 @@ const metaLanguage = {
 };
 
 describe('Language Model', () => {
+    beforeAll(() => {
+        init();
+    });
+
     test('Should return at least two seeded languages', () => {
         const languages = getAll();
 
