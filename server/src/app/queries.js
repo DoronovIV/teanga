@@ -35,5 +35,8 @@ export const queries = {
                 FOREIGN KEY (language_id) REFERENCES languages (id)
             );
         `,
+        delete: 'DELETE FROM words WHERE id = ?;',
+        selectAllByLanguageId: 'SELECT * FROM words WHERE language_id = ?;',
+        selectById: 'SELECT * FROM words WHERE id = ?;',
     },
 };

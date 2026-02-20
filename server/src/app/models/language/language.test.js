@@ -1,4 +1,4 @@
-import { afterAll, beforeAll, describe, expect, test } from '@jest/globals';
+import { afterAll, beforeEach, describe, expect, test } from '@jest/globals';
 
 import { closeAll } from '../../service/db.js';
 import { init } from '../../service/setup.js';
@@ -11,8 +11,8 @@ const metaLanguage = {
     iso_name: 'English',
 };
 
-describe('Language Model', () => {
-    beforeAll(() => {
+describe('Language model', () => {
+    beforeEach(() => {
         init();
     });
 
