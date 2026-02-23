@@ -1,4 +1,4 @@
-import { afterAll, describe, expect, test } from '@jest/globals';
+import { beforeEach, afterEach, describe, expect, test } from '@jest/globals';
 
 import { closeAll, dev } from './db.js';
 import { init } from './setup.js';
@@ -6,9 +6,11 @@ import { init } from './setup.js';
 const db = dev().setup;
 
 describe('Setup service', () => {
-    test('Should create languages schema', () => {
+    beforeEach(() => {
         init();
+    });
 
+    test('Should create languages schema', () => {
         const tableName = 'languages';
         const languageTableCreated = tableExists(tableName);
 
@@ -16,16 +18,13 @@ describe('Setup service', () => {
     });
 
     test('Should create words schema', () => {
-        init();
-
         const tableName = 'words';
         const wordsTableCreated = tableExists(tableName);
 
         expect(wordsTableCreated).toEqual(true);
     });
 
-    afterAll(() => {
-        resetDev();
+    afterEach(() => {
         closeAll();
     });
 });
@@ -36,9 +35,4 @@ function tableExists(tableName) {
     return result.some((obj) => {
         return obj.sql.includes(`CREATE TABLE ${tableName}`);
     });
-}
-
-function resetDev() {
-    db.prepare('DROP TABLE IF EXISTS languages').run();
-    db.prepare('DROP TABLE IF EXISTS words').run();
 }

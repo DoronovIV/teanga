@@ -1,7 +1,8 @@
-import { afterAll, beforeEach, describe, expect, test } from '@jest/globals';
+import { afterEach, beforeEach, describe, expect, test } from '@jest/globals';
 
 import { closeAll } from '../../service/db.js';
 import { init } from '../../service/setup.js';
+import { sql } from '../../sql.js';
 import { getAll as getAllLanguages } from '../language/language.js';
 
 import { insert, getAllByLanguageId, remove, getById } from './word.js';
@@ -87,14 +88,12 @@ describe('Word model', () => {
 
         invalidWord.language_id = Number.MAX_SAFE_INTEGER;
 
-        const errorMessage = 'FOREIGN KEY constraint failed';
-
         expect(() => {
             insert(invalidWord);
-        }).toThrow(errorMessage);
+        }).toThrow(sql.errors.foreignKey);
     });
 
-    afterAll(() => {
+    afterEach(() => {
         removeTestWords();
         closeAll();
     });

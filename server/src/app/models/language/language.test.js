@@ -1,7 +1,8 @@
-import { afterAll, beforeEach, describe, expect, test } from '@jest/globals';
+import { afterEach, beforeEach, describe, expect, test } from '@jest/globals';
 
 import { closeAll } from '../../service/db.js';
 import { init } from '../../service/setup.js';
+import { sql } from '../../sql.js';
 
 import { getAll, getById, insert, remove, update } from './language.js';
 import { languageMock } from './language.mock.js';
@@ -59,11 +60,10 @@ describe('Language model', () => {
 
     test('Should not insert a language with missing required fields (incomplete)', () => {
         const testLanguage = languageMock.insertIncomplete;
-        const errorMessage = 'NOT NULL constraint failed: languages.iso_name';
 
         expect(() => {
             insert(testLanguage);
-        }).toThrow(errorMessage);
+        }).toThrow(sql.errors.notNull);
     });
 
     test('Should update an existing language', () => {
@@ -81,7 +81,7 @@ describe('Language model', () => {
         remove(id);
     });
 
-    afterAll(() => {
+    afterEach(() => {
         removeTestLanguages();
         closeAll();
     });

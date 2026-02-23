@@ -1,15 +1,15 @@
-export const queries = {
+export const sql = {
     languages: {
         create: `
             CREATE TABLE IF NOT EXISTS languages (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                iso_name TEXT NOT NULL,
+                iso_name TEXT UNIQUE NOT NULL,
                 set_1 TEXT NOT NULL,
                 set_2 TEXT NOT NULL,
                 set_3 TEXT NOT NULL,
                 scope TEXT NOT NULL,
                 type TEXT NOT NULL,
-                endonyms TEXT NOT NULL,
+                endonyms TEXT UNIQUE NOT NULL,
                 other_names DEFAULT NULL,
                 notes DEFAULT NULL
             );
@@ -24,7 +24,7 @@ export const queries = {
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 language_id INTEGER NOT NULL,
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                value TEXT NOT NULL,
+                value TEXT UNIQUE NOT NULL,
                 translations TEXT DEFAULT NULL,
                 definition TEXT DEFAULT NULL,
                 class TEXT DEFAULT NULL,
@@ -38,5 +38,10 @@ export const queries = {
         delete: 'DELETE FROM words WHERE id = ?;',
         selectAllByLanguageId: 'SELECT * FROM words WHERE language_id = ?;',
         selectById: 'SELECT * FROM words WHERE id = ?;',
+    },
+    errors: {
+        foreignKey: 'FOREIGN KEY constraint failed',
+        unique: 'SqliteError: UNIQUE constraint failed',
+        notNull: 'NOT NULL constraint failed',
     },
 };

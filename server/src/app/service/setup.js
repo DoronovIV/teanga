@@ -1,5 +1,5 @@
 import { insert } from '../models/language/language.js';
-import { queries } from '../queries.js';
+import { sql } from '../sql.js';
 
 import { dev, closeAll } from './db.js';
 
@@ -30,11 +30,18 @@ const languages = [
  * Create language table and seed with initial data
  */
 export function init() {
-    db.exec(queries.languages.create);
-    db.exec(queries.words.create);
+    db.exec(sql.languages.create);
+    db.exec(sql.words.create);
 
     languages.forEach((language) => {
-        insert(language);
+        try {
+            insert(language);
+        } catch (error) {
+            /** ignore unique error in testing */
+            if (error.code.startsWith(sql.errors.unique)) {
+                return;
+            }
+        }
     });
 
     closeAll();
