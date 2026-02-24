@@ -41,7 +41,7 @@ export const sql = {
     },
     errors: {
         foreignKey: 'FOREIGN KEY constraint failed',
-        unique: 'SqliteError: UNIQUE constraint failed',
+        unique: 'UNIQUE constraint failed',
         notNull: 'NOT NULL constraint failed',
     },
 };

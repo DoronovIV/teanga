@@ -1,6 +1,9 @@
 import { getAllByLanguageId, getById, insert, update, remove } from '../models/word/word.js';
+import { sql } from '../sql.js';
 
 const serverErrorCode = 500;
+const applicationErrorCode = 400;
+const duplicateEntryValue = 1;
 
 export async function getAllWords(request, response) {
     try {
@@ -22,6 +25,15 @@ export async function createWord(request, response) {
     try {
         response.send(insert(request.body));
     } catch (error) {
+        if (error.message.startsWith(sql.errors.unique)) {
+            const duplicateEntry = error.message.split('.')[duplicateEntryValue];
+            const errorMessage = `Duplicate entry '${duplicateEntry}'. Use update.`;
+
+            response.status(applicationErrorCode).send(errorMessage);
+
+            return;
+        }
+
         response.status(serverErrorCode).send(error);
     }
 }

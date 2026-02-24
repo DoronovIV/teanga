@@ -36,4 +36,8 @@ export const wordMock = {
         // synonyms: null,
         // antonyms: null,
     },
+    insertDuplicate: {
+        language_id: 1,
+        value: '__InsertDuplicate',
+    },
 };

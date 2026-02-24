@@ -17,6 +17,9 @@ describe('Word model', () => {
         const { insert: insertWord, insertNull, insertPartial } = wordMock;
         const list = [insertWord, insertNull, insertPartial];
 
+        const languageId = insertWord.language_id;
+        const currentLength = getAllByLanguageId(languageId)?.length ?? 0;
+
         list.forEach((word) => {
             insert(word);
         });
@@ -24,7 +27,7 @@ describe('Word model', () => {
         const { language_id } = insertWord;
         const words = getAllByLanguageId(language_id);
 
-        expect(words.length).toEqual(list.length);
+        expect(words.length).toEqual(currentLength + list.length);
 
         words.forEach((word) => {
             remove(word.id);
@@ -91,6 +94,16 @@ describe('Word model', () => {
         expect(() => {
             insert(invalidWord);
         }).toThrow(sql.errors.foreignKey);
+    });
+
+    test('Should fail to insert duplicate entry', () => {
+        const { insertDuplicate: insertDuplicateWord } = wordMock;
+
+        insert(insertDuplicateWord);
+
+        expect(() => {
+            insert(insertDuplicateWord);
+        }).toThrow(sql.errors.unique);
     });
 
     afterEach(() => {
