@@ -27,7 +27,7 @@ export async function createWord(request, response) {
     } catch (error) {
         if (error.message.startsWith(sql.errors.unique)) {
             const duplicateEntry = error.message.split('.')[duplicateEntryValue];
-            const errorMessage = `Duplicate entry '${duplicateEntry}'. Use update.`;
+            const errorMessage = `Duplicate entry '${duplicateEntry}'. Update should be used.`;
 
             response.status(applicationErrorCode).send(errorMessage);
 

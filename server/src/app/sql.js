@@ -39,6 +39,21 @@ export const sql = {
         selectAllByLanguageId: 'SELECT * FROM words WHERE language_id = ?;',
         selectById: 'SELECT * FROM words WHERE id = ?;',
     },
+    sentences: {
+        create: `
+            CREATE TABLE IF NOT EXISTS sentences (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                word_id INTEGER NOT NULL,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                value TEXT UNIQUE NOT NULL,
+                is_validated INTEGER DEFAULT 0,
+                FOREIGN KEY (word_id) REFERENCES words (id)
+            );
+        `,
+        delete: 'DELETE FROM sentences WHERE id = ?;',
+        selectAllByWordId: 'SELECT * FROM sentences WHERE word_id = ?;',
+        selectById: 'SELECT * FROM sentences WHERE id = ?;',
+    },
     errors: {
         foreignKey: 'FOREIGN KEY constraint failed',
         unique: 'UNIQUE constraint failed',

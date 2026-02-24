@@ -32,6 +32,7 @@ const languages = [
 export function init() {
     db.exec(sql.languages.create);
     db.exec(sql.words.create);
+    db.exec(sql.sentences.create);
 
     languages.forEach((language) => {
         try {
