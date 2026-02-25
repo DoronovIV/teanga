@@ -10,7 +10,6 @@ export default defineConfig([
         ignores: ['**/node_modules/', '**/.angular/', '**/dist/', '**/.git/'],
         rules: {
             'array-callback-return': 'error',
-            'arrow-body-style': 'always',
             'default-case': 'error',
             'default-case-last': 'error',
             eqeqeq: 'error',

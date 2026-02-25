@@ -1,14 +1,14 @@
-import { queries } from '../../queries.js';
 import { dev } from '../../service/db.js';
+import { sql } from '../../sql.js';
 
-const db = dev.setup;
+const db = dev().setup;
 
 export function getAll() {
-    return db.prepare(queries.languages.selectAll).all();
+    return db.prepare(sql.languages.selectAll).all();
 }
 
 export function getById(id) {
-    return db.prepare(queries.languages.selectById).get(id) ?? null;
+    return db.prepare(sql.languages.selectById).get(id) ?? null;
 }
 
 /**
@@ -17,14 +17,11 @@ export function getById(id) {
 export function insert(language) {
     const languageKeys = Object.keys(language).join(', ');
     const insertLine = `INSERT INTO languages (${languageKeys})`;
-
     const languageValues = Object.values(language)
         .map(() => '?')
         .join(', ');
-    const valuesLine = `VALUES (${languageValues});`;
-
+    const valuesLine = `VALUES (${languageValues})`;
     const query = `${insertLine} ${valuesLine};`;
-
     const { lastInsertRowid: id } = db.prepare(query).run(Object.values(language));
 
     return getById(id);
@@ -53,7 +50,7 @@ export function update(id, language) {
 }
 
 export function remove(id) {
-    db.prepare(queries.languages.delete).run(id);
+    db.prepare(sql.languages.delete).run(id);
 
     return true;
 }

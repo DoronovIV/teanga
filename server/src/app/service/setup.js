@@ -1,9 +1,11 @@
-import Database from 'better-sqlite3';
+import { insert } from '../models/language/language.js';
+import { sql } from '../sql.js';
 
-import { config } from '../config.js';
-import { queries } from '../queries.js';
+import { dev, closeAll } from './db.js';
 
-const data = [
+const db = dev().setup;
+
+const languages = [
     {
         iso_name: 'English',
         set_1: 'en',
@@ -12,8 +14,6 @@ const data = [
         scope: 'Individual',
         type: 'Living',
         endonyms: 'English',
-        other_names: null,
-        notes: null,
     },
     {
         iso_name: 'German',
@@ -23,8 +23,6 @@ const data = [
         scope: 'Individual',
         type: 'Living',
         endonyms: 'Deutsch',
-        other_names: null,
-        notes: null,
     },
 ];
 
@@ -32,17 +30,20 @@ const data = [
  * Create language table and seed with initial data
  */
 export function init() {
-    const db = new Database(config.databases.dev.setup);
+    db.exec(sql.languages.create);
+    db.exec(sql.words.create);
+    db.exec(sql.sentences.create);
 
-    db.exec(queries.languages.create);
-    seed(db);
-    db.close();
-}
-
-function seed(db) {
-    const insert = db.prepare(queries.languages.insert);
-
-    data.forEach((language) => {
-        insert.run(Object.values(language));
+    languages.forEach((language) => {
+        try {
+            insert(language);
+        } catch (error) {
+            /** ignore unique error in testing */
+            if (error.code.startsWith(sql.errors.unique)) {
+                return;
+            }
+        }
     });
+
+    closeAll();
 }

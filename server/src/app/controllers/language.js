@@ -1,6 +1,6 @@
-const serverErrorCode = 500;
-
 import { getAll, getById, insert, update, remove } from '../models/language/language.js';
+
+const serverErrorCode = 500;
 
 export async function getAllLanguages(request, response) {
     try {
