@@ -5,7 +5,7 @@ import { init } from '../../service/setup.js';
 import { sql } from '../../sql.js';
 import { getAll as getAllLanguages } from '../language/language.js';
 
-import { insert, getAllByLanguageId, remove, getById } from './word.js';
+import { insert, getAllByLanguageId, remove, getById, update } from './word.js';
 import { wordMock } from './word.mock.js';
 
 describe('Word model', () => {
@@ -104,6 +104,18 @@ describe('Word model', () => {
         expect(() => {
             insert(insertDuplicateWord);
         }).toThrow(sql.errors.unique);
+    });
+
+    test('Should update an existing word', () => {
+        const { update: updateWord } = wordMock;
+
+        const { id } = insert(updateWord);
+        const updatedValue = '__UpdatedTest';
+        const updatedWord = { ...updateWord, value: updatedValue };
+
+        const databaseUpdatedWord = update(id, updatedWord);
+
+        expect(databaseUpdatedWord.value).toEqual(updatedValue);
     });
 
     afterEach(() => {

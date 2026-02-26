@@ -34,7 +34,7 @@ export function update(id, word) {
         })
         .join(', ');
 
-    const whereLine = `WHERE id = ?x`;
+    const whereLine = `WHERE id = ?`;
     const query = `${updateLine} ${setLine} ${whereLine};`;
 
     db.prepare(query).run([...Object.values(word), id]);
