@@ -22,7 +22,7 @@ export async function createSentence(request, response) {
     try {
         response.send(insert(request.body));
     } catch (error) {
-        if (error.message.startsWith(sql.errors.unique)) {
+        if (error.message.startsWith(schema.errors.unique)) {
             const duplicateEntry = error.message.split('.')[duplicateEntryValue];
             const errorMessage = `Duplicate entry '${duplicateEntry}'. Update should be used.`;
 

@@ -1,8 +1,8 @@
 import { afterEach, beforeEach, describe, expect, test } from '@jest/globals';
 
+import { schema } from '../../schema.js';
 import { closeAll } from '../../service/db.js';
 import { init } from '../../service/setup.js';
-import { sql } from '../../sql.js';
 
 import { getAll, getById, insert, remove, update } from './language.js';
 import { languageMock } from './language.mock.js';
@@ -63,7 +63,7 @@ describe('Language model', () => {
 
         expect(() => {
             insert(testLanguage);
-        }).toThrow(sql.errors.notNull);
+        }).toThrow(schema.errors.notNull);
     });
 
     test('Should update an existing language', () => {

@@ -1,5 +1,5 @@
 import { getAllByLanguageId, getById, insert, update, remove } from '../models/word/word.js';
-import { sql } from '../sql.js';
+import { schema } from '../schema.js';
 
 const serverErrorCode = 500;
 const applicationErrorCode = 400;
@@ -25,7 +25,7 @@ export async function createWord(request, response) {
     try {
         response.send(insert(request.body));
     } catch (error) {
-        if (error.message.startsWith(sql.errors.unique)) {
+        if (error.message.startsWith(schema.errors.unique)) {
             const duplicateEntry = error.message.split('.')[duplicateEntryValue];
             const errorMessage = `Duplicate entry '${duplicateEntry}'. Update should be used.`;
 

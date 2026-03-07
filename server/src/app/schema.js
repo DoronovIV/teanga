@@ -1,4 +1,4 @@
-export const sql = {
+export const schema = {
     languages: {
         create: `
             CREATE TABLE IF NOT EXISTS languages (

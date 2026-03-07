@@ -1,14 +1,14 @@
+import { schema } from '../../schema.js';
 import { dev } from '../../service/db.js';
-import { sql } from '../../sql.js';
 
 const db = dev().setup;
 
 export function getAllByWordId(wordId) {
-    return db.prepare(sql.sentences.selectAllByWordId).all(wordId) ?? null;
+    return db.prepare(schema.sentences.selectAllByWordId).all(wordId) ?? null;
 }
 
 export function getById(id) {
-    return db.prepare(sql.sentences.selectById).get(id) ?? null;
+    return db.prepare(schema.sentences.selectById).get(id) ?? null;
 }
 
 export function insert(sentence) {
@@ -43,7 +43,7 @@ export function update(id, sentence) {
 }
 
 export function remove(id) {
-    db.prepare(sql.sentences.delete).run(id);
+    db.prepare(schema.sentences.delete).run(id);
 
     return true;
 }

@@ -2,7 +2,6 @@ import { afterEach, beforeEach, describe, expect, test } from '@jest/globals';
 
 import { closeAll } from '../../service/db.js';
 import { init } from '../../service/setup.js';
-import { sql } from '../../sql.js';
 
 import { insert, getAllByWordId, remove } from './sentence.js';
 import { sentenceMock } from './sentence.mock.js';

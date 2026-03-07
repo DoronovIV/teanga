@@ -1,14 +1,14 @@
+import { schema } from '../../schema.js';
 import { dev } from '../../service/db.js';
-import { sql } from '../../sql.js';
 
 const db = dev().setup;
 
 export function getAll() {
-    return db.prepare(sql.languages.selectAll).all();
+    return db.prepare(schema.languages.selectAll).all();
 }
 
 export function getById(id) {
-    return db.prepare(sql.languages.selectById).get(id) ?? null;
+    return db.prepare(schema.languages.selectById).get(id) ?? null;
 }
 
 /**
@@ -50,7 +50,7 @@ export function update(id, language) {
 }
 
 export function remove(id) {
-    db.prepare(sql.languages.delete).run(id);
+    db.prepare(schema.languages.delete).run(id);
 
     return true;
 }
