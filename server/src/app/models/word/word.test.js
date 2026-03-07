@@ -5,7 +5,7 @@ import { init } from '../../service/setup.js';
 import { sql } from '../../sql.js';
 import { getAll as getAllLanguages } from '../language/language.js';
 
-import { insert, getAllByLanguageId, remove, getById } from './word.js';
+import { insert, getAllByLanguageId, remove, getById, update } from './word.js';
 import { wordMock } from './word.mock.js';
 
 describe('Word model', () => {
@@ -28,10 +28,6 @@ describe('Word model', () => {
         const words = getAllByLanguageId(language_id);
 
         expect(words.length).toEqual(currentLength + list.length);
-
-        words.forEach((word) => {
-            remove(word.id);
-        });
     });
 
     test('Should return a word by id', () => {
@@ -48,8 +44,6 @@ describe('Word model', () => {
         const databaseWord = insert(insertWord);
 
         expect(databaseWord.value).toEqual(insertWord.value);
-
-        remove(databaseWord.id);
     });
 
     test('Should insert (and remove) a word with optional fields defined as null (null)', () => {
@@ -58,8 +52,6 @@ describe('Word model', () => {
         const databaseWord = insert(insertNullWord);
 
         expect(databaseWord.value).toEqual(insertNullWord.value);
-
-        remove(databaseWord.id);
     });
 
     test('Should insert (and remove) a word with missing optional fields (partial)', () => {
@@ -68,8 +60,6 @@ describe('Word model', () => {
         const databaseWord = insert(insertPartialWord);
 
         expect(databaseWord.value).toEqual(insertPartialWord.value);
-
-        remove(databaseWord.id);
     });
 
     test('Should fail to insert a word without language_id', () => {
@@ -104,6 +94,18 @@ describe('Word model', () => {
         expect(() => {
             insert(insertDuplicateWord);
         }).toThrow(sql.errors.unique);
+    });
+
+    test('Should update an existing word', () => {
+        const { update: updateWord } = wordMock;
+
+        const { id } = insert(updateWord);
+        const updatedValue = '__UpdatedTest';
+        const updatedWord = { ...updateWord, value: updatedValue };
+
+        const databaseUpdatedWord = update(id, updatedWord);
+
+        expect(databaseUpdatedWord.value).toEqual(updatedValue);
     });
 
     afterEach(() => {

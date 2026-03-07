@@ -40,4 +40,17 @@ export const wordMock = {
         language_id: 1,
         value: '__InsertDuplicate',
     },
+    update: {
+        language_id: 1,
+        created_at: Date.now(),
+        value: '__TestUpdate',
+        translations: '__TestUpdate',
+        definition:
+            'A test word that is used for testing purposes in the development process. This line is intentionally long to test the handling of long definitions in the database and application.',
+        class: 'noun',
+        is_formal: 0,
+        infinitive: '__TestUpdate',
+        synonyms: '__TestEdit\n__TestAmend\n__TestModify',
+        antonyms: '__ProductionKeep\n__ProductionPreserve\n__ProductionConserve',
+    },
 };

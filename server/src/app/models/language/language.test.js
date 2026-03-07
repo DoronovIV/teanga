@@ -90,7 +90,7 @@ describe('Language model', () => {
 function removeTestLanguages() {
     const ids = getAll()
         .filter((language) => {
-            return language.iso_name.includes('Test');
+            return language.iso_name.startsWith('__');
         })
         .map((language) => {
             return language.id;
