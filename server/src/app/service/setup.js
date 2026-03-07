@@ -4,7 +4,7 @@ import { schema } from '../schema.js';
 
 import { dev, closeAll } from './db.js';
 
-const db = dev().setup;
+const db = dev().test;
 
 const languages = [
     {

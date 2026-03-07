@@ -1,7 +1,7 @@
 import { schema } from '../../schema.js';
 import { dev } from '../../service/db.js';
 
-const db = dev().setup;
+const db = dev().test;
 
 export function getAllByLanguageId(languageId) {
     return db.prepare(schema.words.selectAllByLanguageId).all(languageId) ?? null;

@@ -1,7 +1,7 @@
 import { schema } from '../../schema.js';
 import { dev } from '../../service/db.js';
 
-const db = dev().setup;
+const db = dev().test;
 
 export function getAllByWordId(wordId) {
     return db.prepare(schema.sentences.selectAllByWordId).all(wordId) ?? null;
