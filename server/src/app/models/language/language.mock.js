@@ -1,6 +1,6 @@
 export const languageMock = {
     insert: {
-        iso_name: 'TestInsert',
+        iso_name: '__TestInsert',
         set_1: 'ti',
         set_2: 'tsi',
         set_3: 'tsi',
@@ -11,7 +11,7 @@ export const languageMock = {
         notes: null,
     },
     insertPartial: {
-        iso_name: 'TestInsertPartial',
+        iso_name: '__TestInsertPartial',
         set_1: 'tp',
         set_2: 'tip',
         set_3: 'tip',
