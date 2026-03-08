@@ -12,7 +12,10 @@ export function getById(id) {
     return db.prepare(schema.languages.selectById).get(id) ?? null;
 }
 
-/** @returns id of the newly created language */
+/**
+ * @param {Language} language
+ * @returns id of the newly created language
+ */
 export function insert(language) {
     const id = crudInsert({
         db,
@@ -23,7 +26,10 @@ export function insert(language) {
     return getById(id);
 }
 
-/** @returns updated language object */
+/**
+ * @param {Language} language
+ * @returns updated language object
+ */
 export function update(id, language) {
     crudUpdate({
         db,

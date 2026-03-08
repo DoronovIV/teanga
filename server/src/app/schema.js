@@ -10,8 +10,8 @@ export const schema = {
                 scope TEXT NOT NULL,
                 type TEXT NOT NULL,
                 endonyms TEXT UNIQUE NOT NULL,
-                other_names DEFAULT NULL,
-                notes DEFAULT NULL
+                other_names TEXT DEFAULT NULL,
+                notes TEXT DEFAULT NULL
             );
         `,
         delete: 'DELETE FROM languages WHERE id = ?;',

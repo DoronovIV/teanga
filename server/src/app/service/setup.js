@@ -27,7 +27,7 @@ const languages = [
     },
 ];
 
-const word = {
+const testWord = {
     language_id: 1,
     value: '##Test',
 };
@@ -50,7 +50,7 @@ export function init() {
     });
 
     try {
-        insertWord(word);
+        insertWord(testWord);
     } catch (error) {
         /** ignore unique error in testing */
         if (error.code.startsWith(schema.errors.unique)) {

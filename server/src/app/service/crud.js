@@ -31,6 +31,10 @@ export function insert(params) {
 export function update(params) {
     const { db, tableName, object, id } = params;
 
+    if (!id) {
+        return;
+    }
+
     const updateLine = `UPDATE ${tableName}`;
     let setLine = 'SET ';
 
