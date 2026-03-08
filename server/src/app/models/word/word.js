@@ -1,4 +1,5 @@
 import { schema } from '../../schema.js';
+import { insert as crudInsert, update as crudUpdate } from '../../service/crud.js';
 import { dev } from '../../service/db.js';
 
 const db = dev().test;
@@ -11,33 +12,25 @@ export function getById(id) {
     return db.prepare(schema.words.selectById).get(id) ?? null;
 }
 
+/** @returns id of the newly created word */
 export function insert(word) {
-    const wordKeys = Object.keys(word).join(', ');
-    const insertLine = `INSERT INTO words (${wordKeys})`;
-    const wordValues = Object.values(word)
-        .map(() => '?')
-        .join(', ');
-    const valuesLine = `VALUES (${wordValues})`;
-    const query = `${insertLine} ${valuesLine};`;
-    const { lastInsertRowid: id } = db.prepare(query).run(Object.values(word));
+    const id = crudInsert({
+        db,
+        tableName: 'words',
+        object: word,
+    });
 
     return getById(id);
 }
 
+/** @returns updated word object */
 export function update(id, word) {
-    const updateLine = `UPDATE words`;
-    let setLine = 'SET ';
-
-    setLine += Object.keys(word)
-        .map((key) => {
-            return `${key} = ?`;
-        })
-        .join(', ');
-
-    const whereLine = `WHERE id = ?`;
-    const query = `${updateLine} ${setLine} ${whereLine};`;
-
-    db.prepare(query).run([...Object.values(word), id]);
+    crudUpdate({
+        db,
+        tableName: 'words',
+        object: word,
+        id,
+    });
 
     return getById(id);
 }

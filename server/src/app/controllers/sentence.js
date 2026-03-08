@@ -1,10 +1,13 @@
+import { getById, getAllByWordId, insert, update, remove } from '../models/sentence/sentence';
+import { schema } from '../schema.js';
+
 const serverErrorCode = 500;
 const applicationErrorCode = 400;
 const duplicateEntryValue = 1;
 
 export async function getAllSentences(request, response) {
     try {
-        response.send(getAllBySentenceId(request.params.sentenceId));
+        response.send(getAllByWordId(request.params.sentenceId));
     } catch (error) {
         response.status(serverErrorCode).send(error);
     }
