@@ -1,3 +1,4 @@
+import { errors } from '../errors/errors.js';
 import { insert as insertLanguage } from '../models/language/language.js';
 import { insert as insertWord } from '../models/word/word.js';
 import { schema } from '../schema.js';
@@ -43,7 +44,7 @@ export function init() {
             insertLanguage(language);
         } catch (error) {
             /** ignore unique error in testing */
-            if (error.code.startsWith(schema.errors.unique)) {
+            if (error.code.startsWith(errors.unique)) {
                 return;
             }
         }
@@ -53,7 +54,7 @@ export function init() {
         insertWord(testWord);
     } catch (error) {
         /** ignore unique error in testing */
-        if (error.code.startsWith(schema.errors.unique)) {
+        if (error.code.startsWith(errors.unique)) {
             return;
         }
     }

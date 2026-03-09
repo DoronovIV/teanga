@@ -54,9 +54,4 @@ export const schema = {
         selectAllByWordId: 'SELECT * FROM sentences WHERE word_id = ?;',
         selectById: 'SELECT * FROM sentences WHERE id = ?;',
     },
-    errors: {
-        foreignKey: 'FOREIGN KEY constraint failed',
-        unique: 'UNIQUE constraint failed',
-        notNull: 'NOT NULL constraint failed',
-    },
 };

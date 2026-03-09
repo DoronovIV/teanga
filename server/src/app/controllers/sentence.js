@@ -1,55 +1,55 @@
+import { errors } from '../errors/errors.js';
 import { getById, getAllByWordId, insert, update, remove } from '../models/sentence/sentence';
-import { schema } from '../schema.js';
 
 const serverErrorCode = 500;
 const applicationErrorCode = 400;
 const duplicateEntryValue = 1;
 
-export async function getAllSentences(request, response) {
+export async function getAllSentences(request, reply) {
     try {
-        response.send(getAllByWordId(request.params.sentenceId));
+        reply.send(getAllByWordId(request.params.sentenceId));
     } catch (error) {
-        response.status(serverErrorCode).send(error);
+        reply.status(serverErrorCode).send(error);
     }
 }
 
-export async function getSentenceById(request, response) {
+export async function getSentenceById(request, reply) {
     try {
-        response.send(getById(request.params.id));
+        reply.send(getById(request.params.id));
     } catch (error) {
-        response.status(serverErrorCode).send(error);
+        reply.status(serverErrorCode).send(error);
     }
 }
 
-export async function createSentence(request, response) {
+export async function createSentence(request, reply) {
     try {
-        response.send(insert(request.body));
+        reply.send(insert(request.body));
     } catch (error) {
-        if (error.message.startsWith(schema.errors.unique)) {
+        if (error.message.startsWith(errors.unique)) {
             const duplicateEntry = error.message.split('.')[duplicateEntryValue];
             const errorMessage = `Duplicate entry '${duplicateEntry}'. Update should be used.`;
 
-            response.status(applicationErrorCode).send(errorMessage);
+            reply.status(applicationErrorCode).send(errorMessage);
 
             return;
         }
 
-        response.status(serverErrorCode).send(error);
+        reply.status(serverErrorCode).send(error);
     }
 }
 
-export async function updateSentence(request, response) {
+export async function updateSentence(request, reply) {
     try {
-        response.send(update(request.params.id, request.body));
+        reply.send(update(request.params.id, request.body));
     } catch (error) {
-        response.status(serverErrorCode).send(error);
+        reply.status(serverErrorCode).send(error);
     }
 }
 
-export async function deleteSentence(request, response) {
+export async function deleteSentence(request, reply) {
     try {
-        response.send(remove(request.params.id));
+        reply.send(remove(request.params.id));
     } catch (error) {
-        response.status(serverErrorCode).send(error);
+        reply.status(serverErrorCode).send(error);
     }
 }

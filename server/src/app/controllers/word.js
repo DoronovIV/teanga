@@ -1,55 +1,55 @@
+import { errors } from '../errors/errors.js';
 import { getAllByLanguageId, getById, insert, update, remove } from '../models/word/word.js';
-import { schema } from '../schema.js';
 
 const serverErrorCode = 500;
 const applicationErrorCode = 400;
 const duplicateEntryValue = 1;
 
-export async function getAllWords(request, response) {
+export async function getAllWords(request, reply) {
     try {
-        response.send(getAllByLanguageId(request.params.languageId));
+        reply.send(getAllByLanguageId(request.params.languageId));
     } catch (error) {
-        response.status(serverErrorCode).send(error);
+        reply.status(serverErrorCode).send(error);
     }
 }
 
-export async function getWordById(request, response) {
+export async function getWordById(request, reply) {
     try {
-        response.send(getById(request.params.id));
+        reply.send(getById(request.params.id));
     } catch (error) {
-        response.status(serverErrorCode).send(error);
+        reply.status(serverErrorCode).send(error);
     }
 }
 
-export async function createWord(request, response) {
+export async function createWord(request, reply) {
     try {
-        response.send(insert(request.body));
+        reply.send(insert(request.body));
     } catch (error) {
-        if (error.message.startsWith(schema.errors.unique)) {
+        if (error.message.startsWith(errors.unique)) {
             const duplicateEntry = error.message.split('.')[duplicateEntryValue];
             const errorMessage = `Duplicate entry '${duplicateEntry}'. Update should be used.`;
 
-            response.status(applicationErrorCode).send(errorMessage);
+            reply.status(applicationErrorCode).send(errorMessage);
 
             return;
         }
 
-        response.status(serverErrorCode).send(error);
+        reply.status(serverErrorCode).send(error);
     }
 }
 
-export async function updateWord(request, response) {
+export async function updateWord(request, reply) {
     try {
-        response.send(update(request.params.id, request.body));
+        reply.send(update(request.params.id, request.body));
     } catch (error) {
-        response.status(serverErrorCode).send(error);
+        reply.status(serverErrorCode).send(error);
     }
 }
 
-export async function deleteWord(request, response) {
+export async function deleteWord(request, reply) {
     try {
-        response.send(remove(request.params.id));
+        reply.send(remove(request.params.id));
     } catch (error) {
-        response.status(serverErrorCode).send(error);
+        reply.status(serverErrorCode).send(error);
     }
 }

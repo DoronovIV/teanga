@@ -1,6 +1,7 @@
 import Fastify from 'fastify';
 
 import { config } from './config.js';
+import { handleError } from './error/error.js';
 import { routes as languageRoutes } from './routes/language.js';
 import { routes as wordRoutes } from './routes/word.js';
 import { closeAll } from './service/db.js';
@@ -22,6 +23,8 @@ fastify.addHook('onClose', async (instance, done) => {
     closeAll();
     done();
 });
+
+fastify.setErrorHandler(handleError);
 
 fastify.listen({ port }, async (err) => {
     if (err) {

@@ -2,42 +2,42 @@ import { getAll, getById, insert, update, remove } from '../models/language/lang
 
 const serverErrorCode = 500;
 
-export async function getAllLanguages(request, response) {
+export async function getAllLanguages(request, reply) {
     try {
-        response.send(getAll());
+        reply.send(getAll());
     } catch (error) {
-        response.status(serverErrorCode).send(error);
+        reply.status(serverErrorCode).send(error);
     }
 }
 
-export async function getLanguageById(request, response) {
+export async function getLanguageById(request, reply) {
     try {
-        response.send(getById(request.params.id));
+        reply.send(getById(request.params.id));
     } catch (error) {
-        response.status(serverErrorCode).send(error);
+        reply.status(serverErrorCode).send(error);
     }
 }
 
-export async function createLanguage(request, response) {
+export async function createLanguage(request, reply) {
     try {
-        response.send(insert(request.body));
+        reply.send(insert(request.body));
     } catch (error) {
-        response.status(serverErrorCode).send(error);
+        reply.status(serverErrorCode).send(error);
     }
 }
 
-export async function updateLanguage(request, response) {
+export async function updateLanguage(request, reply) {
     try {
-        response.send(update(request.params.id, request.body));
+        reply.send(update(request.params.id, request.body));
     } catch (error) {
-        response.status(serverErrorCode).send(error);
+        reply.status(serverErrorCode).send(error);
     }
 }
 
-export async function deleteLanguage(request, response) {
+export async function deleteLanguage(request, reply) {
     try {
-        response.send(remove(request.params.id));
+        reply.send(remove(request.params.id));
     } catch (error) {
-        response.status(serverErrorCode).send(error);
+        reply.status(serverErrorCode).send(error);
     }
 }
