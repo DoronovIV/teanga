@@ -1,4 +1,4 @@
-export const sql = {
+export const schema = {
     languages: {
         create: `
             CREATE TABLE IF NOT EXISTS languages (
@@ -10,8 +10,8 @@ export const sql = {
                 scope TEXT NOT NULL,
                 type TEXT NOT NULL,
                 endonyms TEXT UNIQUE NOT NULL,
-                other_names DEFAULT NULL,
-                notes DEFAULT NULL
+                other_names TEXT DEFAULT NULL,
+                notes TEXT DEFAULT NULL
             );
         `,
         delete: 'DELETE FROM languages WHERE id = ?;',
@@ -53,10 +53,5 @@ export const sql = {
         delete: 'DELETE FROM sentences WHERE id = ?;',
         selectAllByWordId: 'SELECT * FROM sentences WHERE word_id = ?;',
         selectById: 'SELECT * FROM sentences WHERE id = ?;',
-    },
-    errors: {
-        foreignKey: 'FOREIGN KEY constraint failed',
-        unique: 'UNIQUE constraint failed',
-        notNull: 'NOT NULL constraint failed',
     },
 };

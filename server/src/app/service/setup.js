@@ -1,10 +1,11 @@
+import { errors } from '../errors/errors.js';
 import { insert as insertLanguage } from '../models/language/language.js';
 import { insert as insertWord } from '../models/word/word.js';
-import { sql } from '../sql.js';
+import { schema } from '../schema.js';
 
 import { dev, closeAll } from './db.js';
 
-const db = dev().setup;
+const db = dev().test;
 
 const languages = [
     {
@@ -27,33 +28,33 @@ const languages = [
     },
 ];
 
-const word = {
+const testWord = {
     language_id: 1,
     value: '##Test',
 };
 
 /** Create language table and seed with initial data */
 export function init() {
-    db.exec(sql.languages.create);
-    db.exec(sql.words.create);
-    db.exec(sql.sentences.create);
+    db.exec(schema.languages.create);
+    db.exec(schema.words.create);
+    db.exec(schema.sentences.create);
 
     languages.forEach((language) => {
         try {
             insertLanguage(language);
         } catch (error) {
             /** ignore unique error in testing */
-            if (error.code.startsWith(sql.errors.unique)) {
+            if (error.code.startsWith(errors.unique)) {
                 return;
             }
         }
     });
 
     try {
-        insertWord(word);
+        insertWord(testWord);
     } catch (error) {
         /** ignore unique error in testing */
-        if (error.code.startsWith(sql.errors.unique)) {
+        if (error.code.startsWith(errors.unique)) {
             return;
         }
     }

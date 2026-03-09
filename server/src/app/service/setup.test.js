@@ -3,7 +3,7 @@ import { beforeEach, afterEach, describe, expect, test } from '@jest/globals';
 import { closeAll, dev } from './db.js';
 import { init } from './setup.js';
 
-const db = dev().setup;
+const db = dev().test;
 
 describe('Setup service', () => {
     beforeEach(() => {

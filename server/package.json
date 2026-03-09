@@ -8,7 +8,7 @@
     "main": "./src/index.js",
     "scripts": {
         "start": "node ./src/index.js",
-        "start:watch": "node --watch ./src/index.js",
+        "start:watch": "node --watchAll ./src/index.js",
         "setup": "node ./src/app/setup.js",
         "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
         "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch",

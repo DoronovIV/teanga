@@ -1,43 +1,21 @@
 import { getAll, getById, insert, update, remove } from '../models/language/language.js';
 
-const serverErrorCode = 500;
-
-export async function getAllLanguages(request, response) {
-    try {
-        response.send(getAll());
-    } catch (error) {
-        response.status(serverErrorCode).send(error);
-    }
+export async function getAllLanguages(request, reply) {
+    reply.send(getAll());
 }
 
-export async function getLanguageById(request, response) {
-    try {
-        response.send(getById(request.params.id));
-    } catch (error) {
-        response.status(serverErrorCode).send(error);
-    }
+export async function getLanguageById(request, reply) {
+    reply.send(getById(request.params.id));
 }
 
-export async function createLanguage(request, response) {
-    try {
-        response.send(insert(request.body));
-    } catch (error) {
-        response.status(serverErrorCode).send(error);
-    }
+export async function createLanguage(request, reply) {
+    reply.send(insert(request.body));
 }
 
-export async function updateLanguage(request, response) {
-    try {
-        response.send(update(request.params.id, request.body));
-    } catch (error) {
-        response.status(serverErrorCode).send(error);
-    }
+export async function updateLanguage(request, reply) {
+    reply.send(update(request.params.id, request.body));
 }
 
-export async function deleteLanguage(request, response) {
-    try {
-        response.send(remove(request.params.id));
-    } catch (error) {
-        response.status(serverErrorCode).send(error);
-    }
+export async function deleteLanguage(request, reply) {
+    reply.send(remove(request.params.id));
 }

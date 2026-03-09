@@ -1,8 +1,8 @@
 import { afterEach, beforeEach, describe, expect, test } from '@jest/globals';
 
+import { errors } from '../../errors/errors.js';
 import { closeAll } from '../../service/db.js';
 import { init } from '../../service/setup.js';
-import { sql } from '../../sql.js';
 import { getAll as getAllLanguages } from '../language/language.js';
 
 import { insert, getAllByLanguageId, remove, getById, update } from './word.js';
@@ -83,7 +83,7 @@ describe('Word model', () => {
 
         expect(() => {
             insert(invalidWord);
-        }).toThrow(sql.errors.foreignKey);
+        }).toThrow(errors.foreignKey);
     });
 
     test('Should fail to insert duplicate entry', () => {
@@ -93,7 +93,7 @@ describe('Word model', () => {
 
         expect(() => {
             insert(insertDuplicateWord);
-        }).toThrow(sql.errors.unique);
+        }).toThrow(errors.unique);
     });
 
     test('Should update an existing word', () => {

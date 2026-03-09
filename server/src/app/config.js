@@ -7,7 +7,6 @@ export const config = {
     port: 4210,
     databases: {
         dev: {
-            setup: `${devConfigDir}/setup.db`,
             test: `${devConfigDir}/test.db`,
             main: `${devConfigDir}/main.db`,
         },
