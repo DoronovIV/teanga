@@ -12,10 +12,7 @@ export function getById(id) {
     return db.prepare(schema.words.selectById).get(id) ?? null;
 }
 
-/**
- * @param {Word} word
- * @returns id of the newly created word
- * */
+/** @returns id of the newly created word */
 export function insert(word) {
     const id = crudInsert({
         db,
@@ -26,10 +23,7 @@ export function insert(word) {
     return getById(id);
 }
 
-/**
- * @param {Word} word
- * @returns updated word object
- * */
+/** @returns updated word object */
 export function update(id, word) {
     crudUpdate({
         db,

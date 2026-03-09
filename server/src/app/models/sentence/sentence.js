@@ -12,10 +12,7 @@ export function getById(id) {
     return db.prepare(schema.sentences.selectById).get(id) ?? null;
 }
 
-/**
- * @param {Sentence} sentence
- * @returns id of the newly created sentence
- * */
+/** @returns id of the newly created sentence */
 export function insert(sentence) {
     const id = crudInsert({
         db,
@@ -26,10 +23,7 @@ export function insert(sentence) {
     return getById(id);
 }
 
-/**
- * @param {Sentence} sentence
- * @returns updated sentence object
- * */
+/** @returns updated sentence object */
 export function update(id, sentence) {
     crudUpdate({
         db,
