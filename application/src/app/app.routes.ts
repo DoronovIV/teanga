@@ -8,11 +8,12 @@ export const routes: Routes = [
     },
     {
         path: 'languages',
-        loadComponent: () =>
-            import('./pages/languages/languages').then((module) => module.LanguagesPage),
+        loadChildren: () =>
+            import('./pages/languages/language.routes').then((module) => module.LanguageRoutes),
     },
     {
         path: 'words',
-        loadComponent: () => import('./pages/words/words').then((module) => module.WordsPage),
+        loadChildren: () =>
+            import('./pages/words/words.routes').then((module) => module.WordsRoutes),
     },
 ];

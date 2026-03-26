@@ -1,4 +1,4 @@
-export type Sentence = {
+export type SentenceModel = {
     id: number;
     word_id: number;
     created_at: string;

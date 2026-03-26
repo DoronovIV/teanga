@@ -1,4 +1,4 @@
-export type Word = {
+export type WordModel = {
     id: number;
     language_id: number;
     created_at: string;

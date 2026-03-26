@@ -1,1 +1,3 @@
-<div>Language works!</div>
+@if (mode === 'read') {
+<div>{{language()?.iso_name}}</div>
+} @else { }

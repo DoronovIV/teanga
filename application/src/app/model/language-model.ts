@@ -1,4 +1,4 @@
-export type Language = {
+export type LanguageModel = {
     id: number;
     iso_name: string;
     set_1: string;

@@ -1,19 +1,21 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
-import { Language } from '@model/language';
+import { RouterLink, RouterOutlet } from '@angular/router';
+import { LanguageModel } from '@model/language-model';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { LanguageAPI } from '@pages/languages/language-api';
 import { tap } from 'rxjs';
 
 @UntilDestroy()
 @Component({
-    selector: 'app-languages',
+    selector: 'app-languages-page',
     templateUrl: './languages.html',
     styleUrl: './languages.scss',
+    imports: [RouterLink, RouterOutlet],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LanguagesPage implements OnInit {
     public languageAPI = inject(LanguageAPI);
-    public languages = signal<Language[]>([]);
+    public languages = signal<LanguageModel[]>([]);
 
     public ngOnInit(): void {
         this._getLanguages();

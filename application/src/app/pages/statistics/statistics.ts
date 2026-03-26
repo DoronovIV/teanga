@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
-    selector: 'app-statistics',
+    selector: 'app-statistics-page',
     templateUrl: './statistics.html',
     styleUrl: './statistics.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,
