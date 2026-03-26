@@ -30,6 +30,7 @@
         "@angular/build": "^21.1.2",
         "@angular/cli": "^21.1.2",
         "@angular/compiler-cli": "^21.1.0",
+        "@ngneat/until-destroy": "^10.0.0",
         "@typescript-eslint/eslint-plugin": "^8.54.0",
         "@typescript-eslint/parser": "^8.54.0",
         "angular-eslint": "^21.2.0",

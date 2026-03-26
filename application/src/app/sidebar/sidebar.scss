@@ -1,0 +1,29 @@
+.sidebar {
+    height: 100%;
+    display: flex;
+
+    &__content {
+        width: 100px;
+        padding: 50px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    &__separator {
+        border-right: 1px solid grey;
+    }
+}
+
+.sidebar-button {
+    width: fit-content;
+    padding: 4px;
+    border: none;
+
+    font-size: 14px;
+    background-color: transparent;
+
+    cursor: pointer;
+}

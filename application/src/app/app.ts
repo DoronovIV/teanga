@@ -1,4 +1,5 @@
 import { Component, signal } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
 import { Sidebar } from './sidebar/sidebar';
 
@@ -6,8 +7,8 @@ import { Sidebar } from './sidebar/sidebar';
     selector: 'app-root',
     templateUrl: './app.html',
     styleUrl: './app.scss',
-    imports: [Sidebar],
+    imports: [Sidebar, RouterOutlet],
 })
 export class App {
-    protected readonly title = signal('application');
+    protected readonly title = signal('Teanga');
 }
