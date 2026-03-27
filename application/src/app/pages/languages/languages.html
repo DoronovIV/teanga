@@ -1,0 +1,13 @@
+@if (languages().length) {
+<div class="language-list">
+    @for (language of languages(); track $index) {
+    <button class="language" routerLink="{{language.id}}">
+        <div>{{ language.set_1 }}</div>
+    </button>
+    }
+</div>
+} @else {
+<div>No languages fetched</div>
+}
+
+<router-outlet />

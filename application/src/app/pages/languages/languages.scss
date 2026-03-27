@@ -1,0 +1,22 @@
+.language-list {
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    gap: 10px;
+}
+
+.language {
+    height: 60px;
+    width: 40px;
+
+    border: 1px solid grey;
+    border-radius: 2px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    user-select: none;
+    cursor: pointer;
+}

@@ -14,7 +14,11 @@
         "importHelpers": true,
         "target": "ES2022",
         "module": "preserve",
-        "noUnusedLocals": true
+        "noUnusedLocals": true,
+        "paths": {
+            "@model/*": ["./src/app/model/*"],
+            "@pages/*": ["./src/app/pages/*"]
+        }
     },
     "angularCompilerOptions": {
         "enableI18nLegacyMessageIdFormat": false,
