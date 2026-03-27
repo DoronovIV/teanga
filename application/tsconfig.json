@@ -17,7 +17,9 @@
         "noUnusedLocals": true,
         "paths": {
             "@model/*": ["./src/app/model/*"],
-            "@pages/*": ["./src/app/pages/*"]
+            "@pages/*": ["./src/app/pages/*"],
+            "@api/*": ["./src/app/api/*"],
+            "@store/*": ["./src/app/store/*"]
         }
     },
     "angularCompilerOptions": {

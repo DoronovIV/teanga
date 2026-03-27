@@ -25,6 +25,7 @@
     "tslib": "^2.3.0"
   },
   "devDependencies": {
+    "@angular-architects/ngrx-toolkit": "^21.0.1",
     "@angular-eslint/eslint-plugin": "^21.2.0",
     "@angular-eslint/eslint-plugin-template": "^21.2.0",
     "@angular-eslint/template-parser": "^21.2.0",
@@ -32,6 +33,7 @@
     "@angular/cli": "^21.1.2",
     "@angular/compiler-cli": "^21.1.0",
     "@ngneat/until-destroy": "^10.0.0",
+    "@ngrx/signals": "^21.1.0",
     "@typescript-eslint/eslint-plugin": "^8.54.0",
     "@typescript-eslint/parser": "^8.54.0",
     "angular-eslint": "^21.2.0",

@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { LanguageModel } from '@model/language-model';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { LanguageAPI } from '@pages/languages/language-api';
-import { tap } from 'rxjs';
+import { UntilDestroy } from '@ngneat/until-destroy';
+import { AppStore } from '@store/app.store';
 
 @UntilDestroy()
 @Component({
@@ -14,22 +13,18 @@ import { tap } from 'rxjs';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LanguagesPage implements OnInit {
-    public languageAPI = inject(LanguageAPI);
-    public languages = signal<LanguageModel[]>([]);
+    private readonly _store = inject(AppStore);
+    public languages = this._store.languages;
 
     public ngOnInit(): void {
         this._getLanguages();
     }
 
+    public selectLanguage(language: LanguageModel): void {
+        this._store.selectLanguage(language);
+    }
+
     private _getLanguages(): void {
-        this.languageAPI
-            .get$()
-            .pipe(
-                tap((languages) => {
-                    this.languages.set(languages);
-                }),
-                untilDestroyed(this),
-            )
-            .subscribe();
+        this._store.getLanguages();
     }
 }
