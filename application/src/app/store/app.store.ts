@@ -1,8 +1,8 @@
 import { inject } from '@angular/core';
-import { withDevtools } from '@angular-architects/ngrx-toolkit';
+import { withDevtools, updateState } from '@angular-architects/ngrx-toolkit';
 import { LanguageAPI } from '@api/language-api';
 import { LanguageModel } from '@model/language-model';
-import { signalStore, withState, withMethods, patchState } from '@ngrx/signals';
+import { signalStore, withState, withMethods } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { catchError, of, pipe, switchMap, tap } from 'rxjs';
 
@@ -23,18 +23,25 @@ export const AppStore = signalStore(
 
     withMethods((store, languageAPI = inject(LanguageAPI)) => ({
         selectLanguage(language: LanguageModel) {
-            patchState(store, { language });
+            updateState(store, 'Select Language', { language });
+        },
+
+        createLanguage(language: LanguageModel) {
+            const languages = store.languages();
+            const newLanguages = [...languages, language];
+
+            updateState(store, 'Create Language', { languages: newLanguages });
         },
 
         getLanguages: rxMethod<void>(
             pipe(
                 tap(() => {
-                    patchState(store, { isLoading: true });
+                    updateState(store, 'Start Loading', { isLoading: true });
                 }),
                 switchMap(() => {
                     return languageAPI.get$().pipe(
                         tap((languages) => {
-                            patchState(store, {
+                            updateState(store, 'Get Languages', {
                                 languages,
                                 isLoading: false,
                             });

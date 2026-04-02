@@ -8,6 +8,5 @@ import { AppStore } from '@store/app.store';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LanguagePage {
-    public mode: 'read' | 'edit' = 'read';
     public language = inject(AppStore).language;
 }

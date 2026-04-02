@@ -1,5 +1,5 @@
 export type LanguageModel = {
-    id: number;
+    id?: number;
     iso_name: string;
     set_1: string;
     set_2: string;
@@ -7,6 +7,6 @@ export type LanguageModel = {
     scope: string;
     type: string;
     endonyms: string[];
-    other_names: string[] | null;
-    notes: string[] | null;
+    other_names?: string[] | null;
+    notes?: string[] | null;
 };

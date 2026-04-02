@@ -11,4 +11,6 @@ export const config = {
             main: `${devConfigDir}/main.db`,
         },
     },
+    disposableTestDataPrefix: '__',
+    reusableTestDataPrefix: '##',
 };

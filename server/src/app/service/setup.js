@@ -15,7 +15,7 @@ const languages = [
         set_3: 'eng',
         scope: 'Individual',
         type: 'Living',
-        endonyms: 'English',
+        endonyms: ['English'],
     },
     {
         iso_name: 'German',
@@ -24,7 +24,7 @@ const languages = [
         set_3: 'deu',
         scope: 'Individual',
         type: 'Living',
-        endonyms: 'Deutsch',
+        endonyms: ['Deutsch'],
     },
 ];
 
@@ -44,7 +44,7 @@ export function init() {
             insertLanguage(language);
         } catch (error) {
             /** ignore unique error in testing */
-            if (error.code.startsWith(errors.unique)) {
+            if (error.code?.startsWith(errors.unique)) {
                 return;
             }
         }
@@ -54,7 +54,7 @@ export function init() {
         insertWord(testWord);
     } catch (error) {
         /** ignore unique error in testing */
-        if (error.code.startsWith(errors.unique)) {
+        if (error.code?.startsWith(errors.unique)) {
             return;
         }
     }

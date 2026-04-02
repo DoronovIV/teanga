@@ -1,0 +1,12 @@
+<form class="language-form">
+    <input type="text" [formField]="languageForm.iso_name" placeholder="iso_name" />
+    <input type="text" [formField]="languageForm.set_1" placeholder="set_1" />
+    <input type="text" [formField]="languageForm.set_2" placeholder="set_2" />
+    <input type="text" [formField]="languageForm.set_3" placeholder="set_3" />
+    <input type="text" [formField]="languageForm.scope" placeholder="scope" />
+    <input type="text" [formField]="languageForm.type" placeholder="type" />
+    <input type="text" [formField]="languageForm.endonyms[0]" placeholder="endonyms" />
+    <input type="text" placeholder="other names" disabled="true" />
+    <input type="text" placeholder="notes" disabled="true" />
+    <button type="button" (click)="create()">create</button>
+</form>

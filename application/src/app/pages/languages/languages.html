@@ -1,7 +1,8 @@
 @if (languages().length) {
 <div class="language-list">
+    <button class="language" routerLink="create">+</button>
     @for (language of languages(); track $index) {
-    <button class="language" routerLink="{{language.id}}" (click)="selectLanguage(language)">
+    <button class="language" routerLink="{{ language.id }}" (click)="selectLanguage(language)">
         <div>{{ language.set_1 }}</div>
     </button>
     }

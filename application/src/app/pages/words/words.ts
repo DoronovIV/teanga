@@ -1,9 +1,43 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { LanguageAPI } from '@api/language-api';
+import { WordModel } from '@model/word-model';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { AppStore } from '@store/app.store';
+import { tap } from 'rxjs';
 
+@UntilDestroy()
 @Component({
     selector: 'app-words-page',
     templateUrl: './words.html',
     styleUrl: './words.scss',
+    imports: [RouterLink],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WordsPage {}
+export class WordsPage implements OnInit {
+    public language = inject(AppStore).language;
+    public words = signal<WordModel[]>([]);
+    private readonly _languageApi = inject(LanguageAPI);
+
+    public ngOnInit(): void {
+        this._getWords();
+    }
+
+    private _getWords(): void {
+        const language = this.language();
+
+        if (!language?.id) {
+            return;
+        }
+
+        this._languageApi
+            .getWords$(language.id)
+            .pipe(
+                tap((words) => {
+                    this.words.set(words);
+                }),
+                untilDestroyed(this),
+            )
+            .subscribe();
+    }
+}
