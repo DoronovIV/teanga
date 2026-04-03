@@ -1,1 +1,7 @@
-<div>Words works!</div>
+<div class="selected-language">{{ language()?.set_1 }}</div>
+
+<div class="word-list">
+    @for (word of words(); track $index) {
+    <button class="word" routerLink="{{ word.id }}">{{ word.value }}</button>
+    }
+</div>

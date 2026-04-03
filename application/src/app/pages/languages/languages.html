@@ -1,13 +1,29 @@
 @if (languages().length) {
 <div class="language-list">
+    <div class="language-card language-card--add">
+        <a routerLink="create">+</a>
+    </div>
     @for (language of languages(); track $index) {
-    <button class="language" routerLink="{{language.id}}">
-        <div>{{ language.set_1 }}</div>
-    </button>
+    <div class="language-card">
+        <div class="language-card__controls">
+            <button class="control">
+                <img class="control" src="controls/pen.svg" alt="" />
+            </button>
+            <button class="control" (click)="delete(language)">
+                <img class="control" src="controls/trash-bin.svg" alt="" />
+            </button>
+        </div>
+        <div class="language-card__body">
+            <a class="language" routerLink="{{ language.id }}" (click)="select(language)">
+                <div>{{ language.iso_name }}</div>
+            </a>
+        </div>
+    </div>
+
     }
 </div>
 } @else {
-<div>No languages fetched</div>
+<div>Unable to fetch languages</div>
 }
 
 <router-outlet />

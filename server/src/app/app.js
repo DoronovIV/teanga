@@ -26,11 +26,11 @@ fastify.addHook('onClose', async (instance, done) => {
 
 fastify.setErrorHandler(handleError);
 
-fastify.listen({ port }, (err) => {
-    if (err) {
-        fastify.log.error(err);
-
-        // eslint-disable-next-line no-undef
-        process.exit(errorExitCode);
-    }
-});
+try {
+    await fastify.listen({ port });
+    fastify.log.info(`Listening on port ${port}.`);
+} catch (err) {
+    fastify.log.error(err);
+    // eslint-disable-next-line no-undef
+    process.exit(errorExitCode);
+}

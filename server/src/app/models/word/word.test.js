@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, test } from '@jest/globals';
 
+import { config } from '../../config.js';
 import { errors } from '../../errors/errors.js';
 import { closeAll } from '../../service/db.js';
 import { init } from '../../service/setup.js';
@@ -120,7 +121,7 @@ function removeTestWords() {
     languages.forEach((language) => {
         const ids = getAllByLanguageId(language.id)
             .filter((word) => {
-                return word.value.startsWith('__');
+                return word.value.startsWith(config.disposableTestDataPrefix);
             })
             .map((word) => {
                 return word.id;

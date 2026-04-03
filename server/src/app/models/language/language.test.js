@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, test } from '@jest/globals';
 
+import { config } from '../../config.js';
 import { errors } from '../../errors/errors.js';
 import { closeAll } from '../../service/db.js';
 import { init } from '../../service/setup.js';
@@ -19,15 +20,12 @@ describe('Language model', () => {
 
     test('Should return at least two seeded languages', () => {
         const languages = getAll();
-
         const english = languages.find((language) => {
             return language.iso_name === 'English';
         });
-
         const deutsch = languages.find((language) => {
             return language.iso_name === 'German';
         });
-
         const twoLanguagesExist = Boolean(english) && Boolean(deutsch);
 
         expect(twoLanguagesExist).toBe(true);
@@ -70,7 +68,7 @@ describe('Language model', () => {
         const testLanguage = languageMock.update;
         const { id } = insert(testLanguage);
         const updatedLanguage = { ...testLanguage };
-        const updatedIsoName = 'Updated Test';
+        const updatedIsoName = '__Updated Test';
 
         updatedLanguage.iso_name = updatedIsoName;
 
@@ -90,7 +88,7 @@ describe('Language model', () => {
 function removeTestLanguages() {
     const ids = getAll()
         .filter((language) => {
-            return language.iso_name.startsWith('__');
+            return language.iso_name.startsWith(config.disposableTestDataPrefix);
         })
         .map((language) => {
             return language.id;

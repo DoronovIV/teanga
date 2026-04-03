@@ -1,9 +1,15 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    effect,
+    inject,
+    Injector,
+    OnInit,
+} from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
-import { LanguageModel } from '@model/language-model';
-import { switchMap, tap } from 'rxjs';
-
-import { LanguageAPI } from '../language-api';
+import { AppStore } from '@store/app.store';
+import { map } from 'rxjs';
 
 @Component({
     selector: 'app-language-page',
@@ -12,28 +18,48 @@ import { LanguageAPI } from '../language-api';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LanguagePage implements OnInit {
-    public mode: 'read' | 'edit' = 'read';
-    public language = signal<LanguageModel | null>(null);
-    private readonly _languageAPI = inject(LanguageAPI);
+    public language = inject(AppStore).language;
 
-    constructor(private readonly _route: ActivatedRoute) {}
+    private readonly _injector = inject(Injector);
+    private readonly _route = inject(ActivatedRoute);
+    private readonly _languageId = toSignal(
+        this._route.params.pipe(map((params) => Number(params['id']))),
+    );
+
+    private readonly _appStore = inject(AppStore);
+    private readonly _languages = inject(AppStore).languages;
 
     public ngOnInit(): void {
+        this._getLanguages();
         this._initLanguage();
     }
 
-    private _initLanguage(): void {
-        this._route.params
-            .pipe(
-                switchMap((params) => {
-                    const languageId = params['id'];
+    private _getLanguages(): void {
+        if (this.language()?.id) {
+            return;
+        }
 
-                    return this._languageAPI.getById$(languageId);
-                }),
-                tap((language) => {
-                    this.language.set(language);
-                }),
-            )
-            .subscribe();
+        this._appStore.getLanguages();
+    }
+
+    private _initLanguage(): void {
+        effect(
+            () => {
+                if (this.language()?.id) {
+                    return;
+                }
+
+                const language = this._languages().find((language) => {
+                    return language.id === this._languageId();
+                });
+
+                if (!language) {
+                    return;
+                }
+
+                this._appStore.selectLanguage(language);
+            },
+            { injector: this._injector },
+        );
     }
 }
