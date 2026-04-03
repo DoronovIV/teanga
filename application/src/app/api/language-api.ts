@@ -26,4 +26,8 @@ export class LanguageAPI {
     public create$(language: LanguageModel): Observable<LanguageModel> {
         return this._httpClient.post<LanguageModel>(`${this._apiUrl}`, language);
     }
+
+    public delete$(languageId: number): Observable<boolean> {
+        return this._httpClient.delete<boolean>(`${this._apiUrl}/${languageId}`);
+    }
 }

@@ -13,18 +13,33 @@ import { AppStore } from '@store/app.store';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LanguagesPage implements OnInit {
+    public languages = inject(AppStore).languages;
+
     private readonly _appStore = inject(AppStore);
-    public languages = this._appStore.languages;
 
     public ngOnInit(): void {
         this._getLanguages();
     }
 
-    public selectLanguage(language: LanguageModel): void {
+    public select(language: LanguageModel): void {
         this._appStore.selectLanguage(language);
     }
 
+    public delete(language: LanguageModel): void {
+        const { id: languageId } = language;
+
+        if (!languageId) {
+            return;
+        }
+
+        this._appStore.deleteLanguage(languageId);
+    }
+
     private _getLanguages(): void {
+        if (this.languages().length) {
+            return;
+        }
+
         this._appStore.getLanguages();
     }
 }

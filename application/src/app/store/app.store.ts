@@ -26,12 +26,50 @@ export const AppStore = signalStore(
             updateState(store, 'Select Language', { language });
         },
 
-        createLanguage(language: LanguageModel) {
-            const languages = store.languages();
-            const newLanguages = [...languages, language];
+        createLanguage: rxMethod<LanguageModel>(
+            pipe(
+                switchMap((language) => {
+                    return languageAPI.create$(language).pipe(
+                        tap((newLanguage) => {
+                            const languages = store.languages();
+                            const newLanguages = [...languages, newLanguage];
 
-            updateState(store, 'Create Language', { languages: newLanguages });
-        },
+                            updateState(store, 'Create Language', { languages: newLanguages });
+                        }),
+                    );
+                }),
+            ),
+        ),
+
+        deleteLanguage: rxMethod<number>(
+            pipe(
+                switchMap((languageId) => {
+                    return languageAPI.delete$(languageId).pipe(
+                        tap((result) => {
+                            if (!result) {
+                                return;
+                            }
+
+                            const languages = [...store.languages()];
+
+                            const languageIndex = languages.findIndex((language) => {
+                                return language.id === languageId;
+                            });
+
+                            if (languageIndex === -1) {
+                                return;
+                            }
+
+                            languages.splice(languageIndex, 1);
+
+                            updateState(store, 'Delete Language', {
+                                languages,
+                            });
+                        }),
+                    );
+                }),
+            ),
+        ),
 
         getLanguages: rxMethod<void>(
             pipe(
