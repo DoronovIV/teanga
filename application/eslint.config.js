@@ -1,27 +1,40 @@
 import angular from '@angular-eslint/eslint-plugin';
 import angularTemplate from '@angular-eslint/eslint-plugin-template';
 import angularTemplateParser from '@angular-eslint/template-parser';
-import js from '@eslint/js';
+import plugin from '@smarttools/eslint-plugin-rxjs';
 import typescript from '@typescript-eslint/eslint-plugin';
 import typescriptParser from '@typescript-eslint/parser';
 import { defineConfig } from 'eslint/config';
 import importPlugin from 'eslint-plugin-import';
 
+const rxjs = plugin;
+
 export default defineConfig([
-    // JavaScript files configuration
     {
-        plugins: { js, import: importPlugin },
-        extends: ['js/recommended'],
-        files: ['**/*.js'],
-        ignores: ['**/node_modules/', '**/.angular/', '**/dist/', '**/.git/'],
+        files: ['**/*.ts'],
+        languageOptions: {
+            parser: typescriptParser,
+            parserOptions: {
+                projectService: true,
+                allowAutomaticSingleRunInference: true,
+            },
+            ecmaVersion: 'latest',
+            sourceType: 'module',
+        },
+        plugins: {
+            '@typescript-eslint': typescript,
+            '@angular-eslint': angular,
+            import: importPlugin,
+            '@smarttools/rxjs': rxjs,
+        },
         rules: {
+            'max-classes-per-file': ['error', 1],
             'array-callback-return': 'error',
             'default-case': 'error',
             'default-case-last': 'error',
             eqeqeq: 'error',
             'no-empty': 'error',
             'no-inline-comments': 'error',
-            'no-undef': 'error',
             'no-unused-vars': 'error',
             'no-debugger': 'error',
             'no-duplicate-case': 'error',
@@ -30,38 +43,10 @@ export default defineConfig([
             'no-var': 'error',
             'no-unassigned-vars': 'error',
             'prefer-const': 'error',
-            'no-magic-numbers': ['error', { ignore: [0, 1] }],
+            'no-magic-numbers': ['error', { ignore: [0, 1, -1] }],
             'no-return-assign': 'error',
             'no-ternary': 'error',
 
-            'import/order': [
-                'error',
-                {
-                    groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
-                    'newlines-between': 'always',
-                    alphabetize: {
-                        order: 'asc',
-                        caseInsensitive: false,
-                    },
-                },
-            ],
-        },
-    },
-
-    // TypeScript files configuration
-    {
-        files: ['**/*.ts'],
-        languageOptions: {
-            parser: typescriptParser,
-            ecmaVersion: 'latest',
-            sourceType: 'module',
-        },
-        plugins: {
-            '@typescript-eslint': typescript,
-            '@angular-eslint': angular,
-            import: importPlugin,
-        },
-        rules: {
             '@typescript-eslint/no-unused-vars': 'error',
             '@typescript-eslint/explicit-function-return-type': [
                 'error',
@@ -85,7 +70,7 @@ export default defineConfig([
                     allow: ['arrowFunctions', 'functions', 'methods'],
                 },
             ],
-            'no-console': 'warn',
+            'no-console': 'error',
             'no-debugger': 'error',
             'no-duplicate-imports': 'error',
             'prefer-const': 'error',
@@ -104,6 +89,85 @@ export default defineConfig([
             ],
             // Disable the basic sort-imports rule in favor of import/order
             'sort-imports': 'off',
+
+            /** custom rules */
+            '@typescript-eslint/member-ordering': [
+                'error',
+                {
+                    default: {
+                        memberTypes: [
+                            'public-decorated-field',
+                            'public-decorated-set',
+                            'public-decorated-get',
+                            'public-decorated-method',
+
+                            'public-static-field',
+                            'protected-static-field',
+                            'private-static-field',
+
+                            'public-instance-field',
+                            'protected-instance-field',
+                            'private-instance-field',
+
+                            'public-instance-get',
+                            'public-instance-set',
+
+                            'public-static-method',
+                            'protected-static-method',
+                            'private-static-method',
+
+                            'constructor',
+
+                            'public-instance-method',
+                            'protected-instance-method',
+                            'private-instance-method',
+                        ],
+                    },
+                },
+            ],
+            'padding-line-between-statements': [
+                'error',
+                {
+                    blankLine: 'always',
+                    prev: ['const', 'let', 'if'],
+                    next: '*',
+                },
+                {
+                    blankLine: 'always',
+                    prev: '*',
+                    next: ['if'],
+                },
+                {
+                    blankLine: 'always',
+                    prev: ['*'],
+                    next: ['return', 'break'],
+                },
+                {
+                    blankLine: 'any',
+                    prev: ['const', 'let'],
+                    next: ['const', 'let'],
+                },
+            ],
+
+            '@angular-eslint/component-selector': [
+                'error',
+                {
+                    type: ['element', 'attribute'],
+                    prefix: ['app', 'ui'],
+                    style: 'kebab-case',
+                },
+            ],
+
+            '@smarttools/rxjs/no-subscribe-handlers': ['error'],
+            '@smarttools/rxjs/finnish': [
+                'error',
+                {
+                    names: {
+                        '^(canActivate|canActivateChild|canDeactivate|canLoad|intercept|resolve|validate)$': false,
+                    },
+                    methods: false,
+                },
+            ],
         },
     },
 
