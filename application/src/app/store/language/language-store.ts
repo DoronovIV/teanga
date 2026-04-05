@@ -21,7 +21,7 @@ export const LanguageStore = signalStore(
     withState(initialState),
 
     withMethods((store, languageAPI = inject(LanguageAPI)) => ({
-        selectLanguage(language: LanguageModel) {
+        selectLanguage(language: LanguageModel | null) {
             updateState(store, '[Language] Select Language', { language });
         },
 

@@ -1,3 +1,4 @@
 export type AppStateModel = {
-    isLoading: boolean;
+    routeUrl: string;
+    objectId: number | string | null;
 };
