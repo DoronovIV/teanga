@@ -4,8 +4,8 @@ import angularTemplateParser from '@angular-eslint/template-parser';
 import plugin from '@smarttools/eslint-plugin-rxjs';
 import typescript from '@typescript-eslint/eslint-plugin';
 import typescriptParser from '@typescript-eslint/parser';
-import { defineConfig } from 'eslint/config';
 import importPlugin from 'eslint-plugin-import';
+import { defineConfig } from 'eslint/config';
 
 const rxjs = plugin;
 
@@ -76,17 +76,7 @@ export default defineConfig([
             'prefer-const': 'error',
             eqeqeq: 'error',
             // Use import plugin for better import sorting
-            'import/order': [
-                'error',
-                {
-                    groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
-                    'newlines-between': 'always',
-                    alphabetize: {
-                        order: 'asc',
-                        caseInsensitive: true,
-                    },
-                },
-            ],
+
             // Disable the basic sort-imports rule in favor of import/order
             'sort-imports': 'off',
 

@@ -1,29 +1,28 @@
+import { updateState, withDevtools } from '@angular-architects/ngrx-toolkit';
 import { inject } from '@angular/core';
-import { withDevtools, updateState } from '@angular-architects/ngrx-toolkit';
 import { LanguageAPI } from '@api/language-api';
 import { LanguageModel } from '@model/language-model';
-import { signalStore, withState, withMethods } from '@ngrx/signals';
+import { signalStore, withMethods, withState } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { catchError, of, pipe, switchMap, tap } from 'rxjs';
 
-import { AppStateModel } from './state-model';
+import { LanguageStateModel } from './state-model';
 
-const initialState: AppStateModel = {
-    isLoading: false,
+const initialState: LanguageStateModel = {
     languages: [],
     language: null,
 };
 
-export const AppStore = signalStore(
+export const LanguageStore = signalStore(
     { providedIn: 'root' },
 
-    withDevtools('app'),
+    withDevtools('language'),
 
     withState(initialState),
 
     withMethods((store, languageAPI = inject(LanguageAPI)) => ({
         selectLanguage(language: LanguageModel) {
-            updateState(store, 'Select Language', { language });
+            updateState(store, '[Language] Select Language', { language });
         },
 
         createLanguage: rxMethod<LanguageModel>(
@@ -34,7 +33,9 @@ export const AppStore = signalStore(
                             const languages = store.languages();
                             const newLanguages = [...languages, newLanguage];
 
-                            updateState(store, 'Create Language', { languages: newLanguages });
+                            updateState(store, '[Language] Create Language', {
+                                languages: newLanguages,
+                            });
                         }),
                     );
                 }),
@@ -62,7 +63,7 @@ export const AppStore = signalStore(
 
                             languages.splice(languageIndex, 1);
 
-                            updateState(store, 'Delete Language', {
+                            updateState(store, '[Language] Delete Language', {
                                 languages,
                             });
                         }),
@@ -73,15 +74,11 @@ export const AppStore = signalStore(
 
         getLanguages: rxMethod<void>(
             pipe(
-                tap(() => {
-                    updateState(store, 'Start Loading', { isLoading: true });
-                }),
                 switchMap(() => {
                     return languageAPI.get$().pipe(
                         tap((languages) => {
-                            updateState(store, 'Get Languages', {
+                            updateState(store, '[Language] Get Languages', {
                                 languages,
-                                isLoading: false,
                             });
                         }),
                     );

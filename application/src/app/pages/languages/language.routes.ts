@@ -11,7 +11,7 @@ export const LanguageRoutes: Routes = [
             import('./language/create/create-language').then((module) => module.CreateLanguagePage),
     },
     {
-        path: 'update',
+        path: 'update/:id',
         loadComponent: () =>
             import('./language/update/update-language').then((module) => module.UpdateLanguagePage),
     },

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/cor
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { LanguageModel } from '@model/language-model';
 import { UntilDestroy } from '@ngneat/until-destroy';
-import { AppStore } from '@store/app.store';
+import { LanguageStore } from '@store/language/language-store';
 
 @UntilDestroy()
 @Component({
@@ -13,16 +13,16 @@ import { AppStore } from '@store/app.store';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LanguagesPage implements OnInit {
-    public languages = inject(AppStore).languages;
+    public languages = inject(LanguageStore).languages;
 
-    private readonly _appStore = inject(AppStore);
+    private readonly _languageStore = inject(LanguageStore);
 
     public ngOnInit(): void {
         this._getLanguages();
     }
 
     public select(language: LanguageModel): void {
-        this._appStore.selectLanguage(language);
+        this._languageStore.selectLanguage(language);
     }
 
     public delete(language: LanguageModel): void {
@@ -32,7 +32,7 @@ export class LanguagesPage implements OnInit {
             return;
         }
 
-        this._appStore.deleteLanguage(languageId);
+        this._languageStore.deleteLanguage(languageId);
     }
 
     private _getLanguages(): void {
@@ -40,6 +40,6 @@ export class LanguagesPage implements OnInit {
             return;
         }
 
-        this._appStore.getLanguages();
+        this._languageStore.getLanguages();
     }
 }

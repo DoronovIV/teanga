@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal, Signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { WordAPI } from '@api/word-api';
 import { WordModel } from '@model/word-model';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { map, switchMap, tap } from 'rxjs';
+import { UntilDestroy } from '@ngneat/until-destroy';
+import { map } from 'rxjs';
 
 @UntilDestroy()
 @Component({
@@ -12,29 +13,15 @@ import { map, switchMap, tap } from 'rxjs';
     styleUrl: './word.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WordPage implements OnInit {
-    public word = signal<WordModel | null>(null);
+export class WordPage {
+    public word: Signal<WordModel | undefined> | null = signal(undefined);
     private readonly _wordAPI = inject(WordAPI);
     private readonly _route = inject(ActivatedRoute);
+    private readonly _wordId = toSignal(
+        this._route.params.pipe(map((params) => Number(params['id']))),
+    );
 
-    public ngOnInit(): void {
-        this._getWord();
-    }
-
-    private _getWord(): void {
-        this._route.params
-            .pipe(
-                map((params) => {
-                    return params['id'];
-                }),
-                switchMap((wordId) => {
-                    return this._wordAPI.getById$(wordId);
-                }),
-                tap((word) => {
-                    this.word.set(word);
-                }),
-                untilDestroyed(this),
-            )
-            .subscribe();
+    constructor() {
+        this.word = toSignal<WordModel>(this._wordAPI.getById$(this._wordId()));
     }
 }
