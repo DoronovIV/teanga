@@ -20,7 +20,8 @@
             "@pages/*": ["./src/app/pages/*"],
             "@api/*": ["./src/app/api/*"],
             "@store/*": ["./src/app/store/*"],
-            "@service/*": ["./src/app/service/*"]
+            "@service/*": ["./src/app/service/*"],
+            "@forms/*": ["./src/app/forms/*"]
         }
     },
     "angularCompilerOptions": {

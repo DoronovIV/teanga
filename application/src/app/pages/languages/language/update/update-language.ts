@@ -1,17 +1,17 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
-import { form, FormField } from '@angular/forms/signals';
-import { RouterLink } from '@angular/router';
+import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
+import { LanguageForm } from '@forms/language/language';
 import { LanguageModel } from '@model/language-model';
+import { AppStore } from '@store/app-store';
 import { LanguageStore } from '@store/language/language-store';
 
 @Component({
     selector: 'app-update-language-page',
     templateUrl: './update-language.html',
     styleUrl: './update-language.scss',
-    imports: [FormField, RouterLink],
+    imports: [LanguageForm],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UpdateLanguagePage implements OnInit {
+export class UpdateLanguagePage {
     public languageModel = signal<LanguageModel>({
         iso_name: '',
         set_1: '',
@@ -22,26 +22,31 @@ export class UpdateLanguagePage implements OnInit {
         endonyms: [''],
     });
 
-    public languageForm = form(this.languageModel);
     private readonly _languageStore = inject(LanguageStore);
+    private readonly _languages = this._languageStore.languages;
+    private readonly _languageId = inject(AppStore).objectId;
 
-    public ngOnInit(): void {
-        const language = this._languageStore.language();
-
-        if (!language) {
-            return;
+    constructor() {
+        if (!this._languages().length) {
+            this._languageStore.getLanguages();
         }
 
-        this.languageModel.set(language);
+        effect(() => {
+            const language = this._languages().find((language) => {
+                return language.id === this._languageId();
+            });
+
+            this._languageStore.selectLanguage(language ?? null);
+
+            if (!language) {
+                return;
+            }
+
+            this.languageModel.set(language);
+        });
     }
 
-    public update(): void {
-        const language = this.languageModel();
-
-        if (!language) {
-            return;
-        }
-
-        // console.log('model:', this.languageModel());
+    public update(languageModel: LanguageModel): void {
+        this._languageStore.updateLanguage(languageModel);
     }
 }

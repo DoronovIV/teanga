@@ -42,6 +42,28 @@ export const LanguageStore = signalStore(
             ),
         ),
 
+        updateLanguage: rxMethod<LanguageModel>(
+            pipe(
+                switchMap((language) => {
+                    return languageAPI.update$(language).pipe(
+                        tap((updatedLanguage) => {
+                            const languages = [...store.languages()];
+                            const index = languages.findIndex((language) => {
+                                return language.id === updatedLanguage.id;
+                            });
+
+                            languages[index] = updatedLanguage;
+
+                            updateState(store, '[Language] Update Language', {
+                                languages,
+                                language: updatedLanguage,
+                            });
+                        }),
+                    );
+                }),
+            ),
+        ),
+
         deleteLanguage: rxMethod<number>(
             pipe(
                 switchMap((languageId) => {
