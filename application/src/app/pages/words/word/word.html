@@ -1,30 +1,33 @@
-<!-- @todo create a variable for the observable value -->
-<!-- @todo make a pipe for the N/A value -->
-<ng-container>
-    @if (word$ | async) {
-    <div class="data">
-        <div class="value">
-            <div class="label">Value</div>
-            {{ (word$ | async)?.value || 'N/A' }}
-        </div>
+@let word = word$ | async; @if (word) {
+<div class="data">
+    <div class="property">
+        <div class="property__label">Value</div>
+        <div class="property__value">{{ word.value | defaultValue }}</div>
+    </div>
 
-        <div class="value">
-            Translations @for (item of (word$ | async)?.translations; track $index) {
-            <div class="chip">{{ item }}</div>
-            } @empty {
-            <div>N/A</div>
-            }
-        </div>
-
-        <div class="value">
-            <div class="label">Definition</div>
-            {{ (word$ | async)?.definition || 'N/A' }}
-        </div>
-
-        <div class="value">
-            <div class="label">Class</div>
-            {{ (word$ | async)?.class || 'N/A' }}
+    <div class="property">
+        <div class="property__label">Translations</div>
+        <div class="property__value">
+            <ng-container *ngTemplateOutlet="list"></ng-container>
         </div>
     </div>
+
+    <div class="property">
+        <div class="property__label">Definition</div>
+        <div class="property__value">{{ word.definition | defaultValue }}</div>
+    </div>
+
+    <div class="property">
+        <div class="property__label">Class</div>
+        <div class="property__value">{{ word.class | defaultValue }}</div>
+    </div>
+</div>
+}
+
+<ng-template #list>
+    @for (item of word?.translations; track $index) {
+    <div class="chip">{{ item }}</div>
+    } @empty {
+    <div>{{ word?.translations | defaultValue}}</div>
     }
-</ng-container>
+</ng-template>

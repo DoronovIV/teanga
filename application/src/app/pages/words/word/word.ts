@@ -1,9 +1,10 @@
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, DestroyRef, effect, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { WordAPI } from '@api/word-api';
 import { WordModel } from '@model/word-model';
 import { UntilDestroy } from '@ngneat/until-destroy';
+import { DefaultValue } from '@pipes/default-value';
 import { AppStore } from '@store/app-store';
 import { Observable } from 'rxjs';
 
@@ -12,7 +13,7 @@ import { Observable } from 'rxjs';
     selector: 'app-word-page',
     templateUrl: './word.html',
     styleUrl: './word.scss',
-    imports: [AsyncPipe],
+    imports: [AsyncPipe, DefaultValue, NgTemplateOutlet],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WordPage {

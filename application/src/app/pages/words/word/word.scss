@@ -8,10 +8,17 @@
     justify-content: center;
 }
 
-.value {
-    width: 15%;
+.property {
     display: flex;
     justify-content: space-between;
+
+    max-width: 30%;
+
+    &__value {
+        position: relative;
+        left: 20%;
+        top: 0;
+    }
 }
 
 .chip {
