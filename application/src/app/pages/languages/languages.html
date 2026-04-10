@@ -11,10 +11,10 @@
                 routerLink="update/{{ language.id }}"
                 (click)="select(language)"
             >
-                <img class="control__icon" src="controls/pen.svg" alt="" />
+                <app-pen-icon></app-pen-icon>
             </button>
             <button class="control" (click)="delete(language)">
-                <img class="control__icon" src="controls/trash-bin.svg" alt="" />
+                <app-trash-bin-icon></app-trash-bin-icon>
             </button>
         </div>
         <div class="language-card__body">

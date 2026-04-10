@@ -10,8 +10,8 @@ export class WordAPI {
     private readonly _apiUrl = '/api/words';
     private readonly _httpClient = inject(HttpClient);
 
-    public getById$(wordId: number | undefined): Observable<WordModel> {
-        if (!wordId) {
+    public getById$(wordId: string | number | null): Observable<WordModel> {
+        if (!wordId || isNaN(+wordId)) {
             return EMPTY;
         }
 

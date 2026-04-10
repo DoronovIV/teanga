@@ -4,8 +4,9 @@ import { signalStore, withMethods, withState } from '@ngrx/signals';
 import { AppStateModel } from './state-model';
 
 const initialState: AppStateModel = {
-    routeUrl: '/',
+    theme: 'dark',
     objectId: null,
+    routeUrl: '/',
 };
 
 export const AppStore = signalStore(
@@ -16,6 +17,10 @@ export const AppStore = signalStore(
     withState(initialState),
 
     withMethods((store) => ({
+        setTheme(theme: 'light' | 'dark') {
+            updateState(store, '[Application] Set Theme', { theme });
+        },
+
         setRoutingData(url: string, id: number | string | null) {
             updateState(store, '[Application] Set Routing Data', { routeUrl: url, objectId: id });
         },

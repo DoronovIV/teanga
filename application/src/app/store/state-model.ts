@@ -1,4 +1,5 @@
 export type AppStateModel = {
-    routeUrl: string;
+    theme: 'light' | 'dark';
     objectId: number | string | null;
+    routeUrl: string;
 };

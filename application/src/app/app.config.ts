@@ -7,6 +7,7 @@ import {
 import { provideRouter } from '@angular/router';
 
 import { RouterSyncService } from '@service/router-sync-service';
+import { ThemeService } from '@service/theme-service';
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
@@ -15,6 +16,7 @@ export const appConfig: ApplicationConfig = {
         provideRouter(routes),
         RouterSyncService,
         provideAppInitializer(() => {
+            inject(ThemeService);
             inject(RouterSyncService);
         }),
     ],

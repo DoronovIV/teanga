@@ -9,4 +9,14 @@ export const WordsRoutes: Routes = [
         path: ':id',
         loadComponent: () => import('./word/word').then((module) => module.WordPage),
     },
+    {
+        path: 'create',
+        loadComponent: () =>
+            import('./word/create/create-word').then((module) => module.CreateWordPage),
+    },
+    {
+        path: 'update/:id',
+        loadComponent: () =>
+            import('./word/update/update-word').then((module) => module.UpdateWordPage),
+    },
 ];

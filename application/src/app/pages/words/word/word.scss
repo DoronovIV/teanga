@@ -1,0 +1,27 @@
+.data {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    justify-content: center;
+}
+
+.value {
+    width: 15%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.chip {
+    width: fit-content;
+
+    padding: 0.5rem;
+    border: none;
+    border-radius: 6px;
+
+    background-color: var(--primary-color);
+
+    user-select: none;
+}

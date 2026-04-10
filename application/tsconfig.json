@@ -21,7 +21,8 @@
             "@api/*": ["./src/app/api/*"],
             "@store/*": ["./src/app/store/*"],
             "@service/*": ["./src/app/service/*"],
-            "@forms/*": ["./src/app/forms/*"]
+            "@forms/*": ["./src/app/forms/*"],
+            "@icons/*": ["./src/app/icons/*"]
         }
     },
     "angularCompilerOptions": {

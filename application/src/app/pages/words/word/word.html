@@ -1,3 +1,30 @@
-@if (word) {
-<div class="word">{{ word()?.value }}</div>
-}
+<!-- @todo create a variable for the observable value -->
+<!-- @todo make a pipe for the N/A value -->
+<ng-container>
+    @if (word$ | async) {
+    <div class="data">
+        <div class="value">
+            <div class="label">Value</div>
+            {{ (word$ | async)?.value || 'N/A' }}
+        </div>
+
+        <div class="value">
+            Translations @for (item of (word$ | async)?.translations; track $index) {
+            <div class="chip">{{ item }}</div>
+            } @empty {
+            <div>N/A</div>
+            }
+        </div>
+
+        <div class="value">
+            <div class="label">Definition</div>
+            {{ (word$ | async)?.definition || 'N/A' }}
+        </div>
+
+        <div class="value">
+            <div class="label">Class</div>
+            {{ (word$ | async)?.class || 'N/A' }}
+        </div>
+    </div>
+    }
+</ng-container>
