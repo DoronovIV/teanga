@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { LanguageModel } from '@model/language-model';
-import { WordModel } from '@model/word-model';
+import { LanguageModel } from '@model/language';
+import { WordModel } from '@model/word';
 import { Observable } from 'rxjs';
 
 @Injectable({

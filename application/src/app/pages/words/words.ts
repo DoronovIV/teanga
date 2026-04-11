@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { LanguageAPI } from '@api/language-api';
-import { WordModel } from '@model/word-model';
+import { WordModel } from '@model/word';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { LanguageStore } from '@store/language/language-store';
 import { tap } from 'rxjs';

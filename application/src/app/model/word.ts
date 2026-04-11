@@ -4,8 +4,8 @@ export type WordModel = {
     created_at: string;
     value: string;
     translations: string[];
-    definition: string;
-    class: string;
+    definitions: string[];
+    classes: string[];
     is_format: boolean;
     infinitive: string;
     synonyms: string[] | null;

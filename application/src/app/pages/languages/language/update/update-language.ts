@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
 import { LanguageForm } from '@forms/language/language';
-import { LanguageModel } from '@model/language-model';
+import { LanguageModel } from '@model/language';
 import { AppStore } from '@store/app-store';
 import { LanguageStore } from '@store/language/language-store';
 

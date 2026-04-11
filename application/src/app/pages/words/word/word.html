@@ -8,26 +8,46 @@
     <div class="property">
         <div class="property__label">Translations</div>
         <div class="property__value">
-            <ng-container *ngTemplateOutlet="list"></ng-container>
+            <ng-container *ngTemplateOutlet="translations"></ng-container>
         </div>
     </div>
 
     <div class="property">
-        <div class="property__label">Definition</div>
-        <div class="property__value">{{ word.definition | defaultValue }}</div>
+        <div class="property__label">Definitions</div>
+        <div class="property__value">
+            <ng-container *ngTemplateOutlet="definitions"></ng-container>
+        </div>
     </div>
 
     <div class="property">
-        <div class="property__label">Class</div>
-        <div class="property__value">{{ word.class | defaultValue }}</div>
+        <div class="property__label">Classes</div>
+        <div class="property__value">
+            <ng-container *ngTemplateOutlet="classes"></ng-container>
+        </div>
     </div>
 </div>
 }
 
-<ng-template #list>
+<ng-template #translations>
     @for (item of word?.translations; track $index) {
     <div class="chip">{{ item }}</div>
     } @empty {
     <div>{{ word?.translations | defaultValue}}</div>
+    }
+</ng-template>
+
+<ng-template #definitions>
+    @for (item of word?.definitions; track $index) {
+    <div class="chip">{{ item }}</div>
+    } @empty {
+    <div>{{ word?.definitions | defaultValue}}</div>
+    }
+</ng-template>
+
+<ng-template #classes>
+    @for (item of word?.classes; track $index) {
+    <div class="chip">{{ item }}</div>
+    } @empty {
+    <div>{{ word?.classes | defaultValue}}</div>
     }
 </ng-template>

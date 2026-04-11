@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/cor
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { PenIcon } from '@icons/pen/pen';
 import { TrashBinIcon } from '@icons/trash-bin/trash-bin';
-import { LanguageModel } from '@model/language-model';
+import { LanguageModel } from '@model/language';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { LanguageStore } from '@store/language/language-store';
 

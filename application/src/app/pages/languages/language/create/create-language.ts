@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { form } from '@angular/forms/signals';
 import { LanguageForm } from '@forms/language/language';
-import { LanguageModel } from '@model/language-model';
+import { LanguageModel } from '@model/language';
 import { LanguageStore } from '@store/language/language-store';
 
 @Component({

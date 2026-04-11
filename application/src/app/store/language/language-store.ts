@@ -1,7 +1,7 @@
 import { updateState, withDevtools } from '@angular-architects/ngrx-toolkit';
 import { inject } from '@angular/core';
 import { LanguageAPI } from '@api/language-api';
-import { LanguageModel } from '@model/language-model';
+import { LanguageModel } from '@model/language';
 import { signalStore, withMethods, withState } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { catchError, of, pipe, switchMap, tap } from 'rxjs';

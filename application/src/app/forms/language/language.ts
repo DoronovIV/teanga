@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, input, linkedSignal, output } from '@angular/core';
 import { form, FormField, minLength, pattern, required } from '@angular/forms/signals';
 import { RouterLink } from '@angular/router';
-import { LanguageModel } from '@model/language-model';
+import { LanguageModel } from '@model/language';
 
 const minNameLength = 5;
 

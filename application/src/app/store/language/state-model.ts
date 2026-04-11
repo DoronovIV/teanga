@@ -1,4 +1,4 @@
-import { LanguageModel } from '@model/language-model';
+import { LanguageModel } from '@model/language';
 
 export type LanguageStateModel = {
     languages: LanguageModel[];

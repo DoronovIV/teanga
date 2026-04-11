@@ -2,7 +2,7 @@ import { AsyncPipe, NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, DestroyRef, effect, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { WordAPI } from '@api/word-api';
-import { WordModel } from '@model/word-model';
+import { WordModel } from '@model/word';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { DefaultValue } from '@pipes/default-value';
 import { AppStore } from '@store/app-store';
