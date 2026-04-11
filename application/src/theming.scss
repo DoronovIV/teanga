@@ -1,0 +1,26 @@
+:root {
+    /** dark theme by default */
+    --bg-color: #1a1a1a;
+    --text-color: #f0f0f0;
+    --primary-color: #66b0ff;
+}
+
+.light-theme {
+    --bg-color: #ffffff;
+    --text-color: #333333;
+    --primary-color: #50a4ff;
+}
+
+.dark-theme {
+    --bg-color: #1a1a1a;
+    --text-color: #f0f0f0;
+    --primary-color: #cdf856;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition:
+        background-color 0.3s,
+        color 0.3s;
+}

@@ -1,40 +1,32 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { AsyncPipe, NgTemplateOutlet } from '@angular/common';
+import { ChangeDetectionStrategy, Component, DestroyRef, effect, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { WordAPI } from '@api/word-api';
-import { WordModel } from '@model/word-model';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { map, switchMap, tap } from 'rxjs';
+import { WordModel } from '@model/word';
+import { UntilDestroy } from '@ngneat/until-destroy';
+import { DefaultValue } from '@pipes/default-value';
+import { AppStore } from '@store/app-store';
+import { Observable } from 'rxjs';
 
 @UntilDestroy()
 @Component({
     selector: 'app-word-page',
     templateUrl: './word.html',
     styleUrl: './word.scss',
+    imports: [AsyncPipe, DefaultValue, NgTemplateOutlet],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WordPage implements OnInit {
-    public word = signal<WordModel | null>(null);
+export class WordPage {
+    public word$: Observable<WordModel> | null = null;
     private readonly _wordAPI = inject(WordAPI);
-    private readonly _route = inject(ActivatedRoute);
+    private readonly _wordId = inject(AppStore).objectId;
+    private readonly _destroyRef = inject(DestroyRef);
 
-    public ngOnInit(): void {
-        this._getWord();
-    }
-
-    private _getWord(): void {
-        this._route.params
-            .pipe(
-                map((params) => {
-                    return params['id'];
-                }),
-                switchMap((wordId) => {
-                    return this._wordAPI.getById$(wordId);
-                }),
-                tap((word) => {
-                    this.word.set(word);
-                }),
-                untilDestroyed(this),
-            )
-            .subscribe();
+    constructor() {
+        effect(() => {
+            this.word$ = this._wordAPI
+                .getById$(this._wordId())
+                .pipe(takeUntilDestroyed(this._destroyRef));
+        });
     }
 }

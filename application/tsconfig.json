@@ -19,7 +19,11 @@
             "@model/*": ["./src/app/model/*"],
             "@pages/*": ["./src/app/pages/*"],
             "@api/*": ["./src/app/api/*"],
-            "@store/*": ["./src/app/store/*"]
+            "@store/*": ["./src/app/store/*"],
+            "@service/*": ["./src/app/service/*"],
+            "@forms/*": ["./src/app/forms/*"],
+            "@icons/*": ["./src/app/icons/*"],
+            "@pipes/*": ["./src/app/pipes/*"]
         }
     },
     "angularCompilerOptions": {

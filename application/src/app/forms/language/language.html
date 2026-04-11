@@ -1,0 +1,25 @@
+<form class="language-form">
+    <input type="text" [formField]="languageForm.iso_name" placeholder="iso_name" />
+    <input type="text" [formField]="languageForm.set_1" placeholder="set_1" />
+    <input type="text" [formField]="languageForm.set_2" placeholder="set_2" />
+    <input type="text" [formField]="languageForm.set_3" placeholder="set_3" />
+    <input type="text" [formField]="languageForm.scope" placeholder="scope" />
+    <input type="text" [formField]="languageForm.type" placeholder="type" />
+    <input type="text" [formField]="languageForm.endonyms[0]" placeholder="endonyms" />
+    <input type="text" placeholder="other names" disabled="true" />
+    <input type="text" placeholder="notes" disabled="true" />
+    <button
+        type="button"
+        [disabled]="languageForm().invalid() || !languageForm().dirty()"
+        (click)="onSubmit()"
+        routerLink="/languages"
+    >
+        {{ buttonLabel() }}
+    </button>
+
+    <div class="error-section">
+        @for (error of languageForm().errorSummary(); track $index) {
+        <div class="error-section__error">{{error.message}}</div>
+        }
+    </div>
+</form>

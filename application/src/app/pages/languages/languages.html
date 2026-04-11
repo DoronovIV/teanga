@@ -6,11 +6,15 @@
     @for (language of languages(); track $index) {
     <div class="language-card">
         <div class="language-card__controls">
-            <button class="control">
-                <img class="control" src="controls/pen.svg" alt="" />
+            <button
+                class="control"
+                routerLink="update/{{ language.id }}"
+                (click)="select(language)"
+            >
+                <app-pen-icon></app-pen-icon>
             </button>
             <button class="control" (click)="delete(language)">
-                <img class="control" src="controls/trash-bin.svg" alt="" />
+                <app-trash-bin-icon></app-trash-bin-icon>
             </button>
         </div>
         <div class="language-card__body">

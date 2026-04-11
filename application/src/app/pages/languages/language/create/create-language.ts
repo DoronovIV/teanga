@@ -1,15 +1,15 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { form, FormField } from '@angular/forms/signals';
-import { RouterLink } from '@angular/router';
-import { LanguageModel } from '@model/language-model';
-import { AppStore } from '@store/app.store';
+import { form } from '@angular/forms/signals';
+import { LanguageForm } from '@forms/language/language';
+import { LanguageModel } from '@model/language';
+import { LanguageStore } from '@store/language/language-store';
 
 @Component({
     selector: 'app-create-language-page',
     templateUrl: './create-language.html',
     styleUrl: './create-language.scss',
+    imports: [LanguageForm],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [FormField, RouterLink],
 })
 export class CreateLanguagePage {
     public languageModel = signal<LanguageModel>({
@@ -23,11 +23,9 @@ export class CreateLanguagePage {
     });
 
     public languageForm = form(this.languageModel);
-    private readonly _appStore = inject(AppStore);
+    private readonly _languageStore = inject(LanguageStore);
 
-    public create(): void {
-        const language = this.languageModel();
-
-        this._appStore.createLanguage(language);
+    public create(formOutput: LanguageModel): void {
+        this._languageStore.createLanguage(formOutput);
     }
 }

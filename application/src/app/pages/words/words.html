@@ -1,7 +1,11 @@
-<div class="selected-language">{{ language()?.set_1 }}</div>
-
 <div class="word-list">
-    @for (word of words(); track $index) {
+    @if (language()) {
+    <a class="word" routerLink="create">+</a>
+    } @for (word of words(); track $index) {
     <button class="word" routerLink="{{ word.id }}">{{ word.value }}</button>
-    }
+    } @empty { @if (!language()) {
+    <div class="empty-message">Please select language to start.</div>
+    } @else {
+    <div class="empty-message">Unable to fetch words.</div>
+    } }
 </div>

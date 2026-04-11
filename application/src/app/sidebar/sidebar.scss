@@ -1,6 +1,9 @@
 .sidebar {
     height: 100%;
     display: flex;
+    padding: 10px 20px;
+
+    border-right: 1px solid var(--text-color);
 
     &__content {
         width: 100px;
@@ -13,8 +16,24 @@
     }
 
     &__separator {
-        border-right: 1px solid grey;
+        border-right: 1px solid var(--text-color);
     }
+}
+
+.theme-toggle {
+    width: 24px;
+    height: 24px;
+
+    border: none;
+    border-radius: 6px;
+    background-color: red;
+
+    cursor: pointer;
+}
+
+.language {
+    min-width: 20px;
+    user-select: none;
 }
 
 .sidebar-button {
@@ -25,5 +44,9 @@
     font-size: 14px;
     background-color: transparent;
 
+    user-select: none;
     cursor: pointer;
+
+    background: var(--bg-color);
+    color: var(--text-color);
 }

@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { LanguageAPI } from '@api/language-api';
-import { WordModel } from '@model/word-model';
+import { WordModel } from '@model/word';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { AppStore } from '@store/app.store';
+import { LanguageStore } from '@store/language/language-store';
 import { tap } from 'rxjs';
 
 @UntilDestroy()
@@ -15,7 +15,7 @@ import { tap } from 'rxjs';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WordsPage implements OnInit {
-    public language = inject(AppStore).language;
+    public language = inject(LanguageStore).language;
     public words = signal<WordModel[]>([]);
     private readonly _languageApi = inject(LanguageAPI);
 

@@ -1,1 +1,53 @@
-<div class="word">{{ word()?.value }}</div>
+@let word = word$ | async; @if (word) {
+<div class="data">
+    <div class="property">
+        <div class="property__label">Value</div>
+        <div class="property__value">{{ word.value | defaultValue }}</div>
+    </div>
+
+    <div class="property">
+        <div class="property__label">Translations</div>
+        <div class="property__value">
+            <ng-container *ngTemplateOutlet="translations"></ng-container>
+        </div>
+    </div>
+
+    <div class="property">
+        <div class="property__label">Definitions</div>
+        <div class="property__value">
+            <ng-container *ngTemplateOutlet="definitions"></ng-container>
+        </div>
+    </div>
+
+    <div class="property">
+        <div class="property__label">Classes</div>
+        <div class="property__value">
+            <ng-container *ngTemplateOutlet="classes"></ng-container>
+        </div>
+    </div>
+</div>
+}
+
+<ng-template #translations>
+    @for (item of word?.translations; track $index) {
+    <div class="chip">{{ item }}</div>
+    } @empty {
+    <div>{{ word?.translations | defaultValue}}</div>
+    }
+</ng-template>
+
+<ng-template #definitions>
+    @for (item of word?.definitions; track $index) {
+    <div class="chip">{{ item }}</div>
+    } @empty {
+    <div>{{ word?.definitions | defaultValue}}</div>
+    }
+</ng-template>
+
+<ng-template #classes>
+    @for (item of word?.classes; track $index) {
+    <div class="chip">{{ item }}</div>
+    } @empty {
+    <div>{{ word?.classes | defaultValue}}</div>
+    }
+</ng-template>

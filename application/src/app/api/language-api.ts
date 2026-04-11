@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { LanguageModel } from '@model/language-model';
-import { WordModel } from '@model/word-model';
+import { LanguageModel } from '@model/language';
+import { WordModel } from '@model/word';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -25,6 +25,10 @@ export class LanguageAPI {
 
     public create$(language: LanguageModel): Observable<LanguageModel> {
         return this._httpClient.post<LanguageModel>(`${this._apiUrl}`, language);
+    }
+
+    public update$(language: LanguageModel): Observable<LanguageModel> {
+        return this._httpClient.put<LanguageModel>(`${this._apiUrl}/${language.id}`, language);
     }
 
     public delete$(languageId: number): Observable<boolean> {

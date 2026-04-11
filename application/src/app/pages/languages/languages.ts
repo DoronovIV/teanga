@@ -1,28 +1,30 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { LanguageModel } from '@model/language-model';
+import { PenIcon } from '@icons/pen/pen';
+import { TrashBinIcon } from '@icons/trash-bin/trash-bin';
+import { LanguageModel } from '@model/language';
 import { UntilDestroy } from '@ngneat/until-destroy';
-import { AppStore } from '@store/app.store';
+import { LanguageStore } from '@store/language/language-store';
 
 @UntilDestroy()
 @Component({
     selector: 'app-languages-page',
     templateUrl: './languages.html',
     styleUrl: './languages.scss',
-    imports: [RouterLink, RouterOutlet],
+    imports: [RouterLink, RouterOutlet, PenIcon, TrashBinIcon],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LanguagesPage implements OnInit {
-    public languages = inject(AppStore).languages;
+    public languages = inject(LanguageStore).languages;
 
-    private readonly _appStore = inject(AppStore);
+    private readonly _languageStore = inject(LanguageStore);
 
     public ngOnInit(): void {
         this._getLanguages();
     }
 
     public select(language: LanguageModel): void {
-        this._appStore.selectLanguage(language);
+        this._languageStore.selectLanguage(language);
     }
 
     public delete(language: LanguageModel): void {
@@ -32,7 +34,7 @@ export class LanguagesPage implements OnInit {
             return;
         }
 
-        this._appStore.deleteLanguage(languageId);
+        this._languageStore.deleteLanguage(languageId);
     }
 
     private _getLanguages(): void {
@@ -40,6 +42,6 @@ export class LanguagesPage implements OnInit {
             return;
         }
 
-        this._appStore.getLanguages();
+        this._languageStore.getLanguages();
     }
 }
