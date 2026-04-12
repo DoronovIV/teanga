@@ -35,25 +35,25 @@ describe('Language model', () => {
         const { id, iso_name } = metaLanguage;
         const language = getById(id);
 
-        expect(language.iso_name).toBe(iso_name);
+        expect(language?.iso_name).toBe(iso_name);
     });
 
     test('Should insert (and remove) a new language', () => {
         const testLanguage = languageMock.insert;
         const language = insert(testLanguage);
 
-        remove(language.id);
+        remove(language?.id ?? -1);
 
-        expect(testLanguage.iso_name).toBe(language.iso_name);
+        expect(testLanguage.iso_name).toBe(language?.iso_name);
     });
 
     test('Should insert (and remove) a new language with missing optional fields (partial)', () => {
         const testLanguage = languageMock.insertPartial;
         const language = insert(testLanguage);
 
-        remove(language.id);
+        remove(language?.id ?? -1);
 
-        expect(language.iso_name).toBe(testLanguage.iso_name);
+        expect(language?.iso_name).toBe(testLanguage.iso_name);
     });
 
     test('Should not insert a language with missing required fields (incomplete)', () => {
@@ -66,7 +66,7 @@ describe('Language model', () => {
 
     test('Should update an existing language', () => {
         const testLanguage = languageMock.update;
-        const { id } = insert(testLanguage);
+        const id = insert(testLanguage)?.id ?? -1;
         const updatedLanguage = { ...testLanguage };
         const updatedIsoName = '__Updated Test';
 
@@ -74,7 +74,7 @@ describe('Language model', () => {
 
         const updatedLanguageInDb = update(id, updatedLanguage);
 
-        expect(updatedLanguageInDb.iso_name).toBe(updatedIsoName);
+        expect(updatedLanguageInDb?.iso_name).toBe(updatedIsoName);
 
         remove(id);
     });
@@ -85,7 +85,7 @@ describe('Language model', () => {
     });
 });
 
-function removeTestLanguages() {
+function removeTestLanguages(): void {
     const ids = getAll()
         .filter((language) => {
             return language.iso_name.startsWith(config.disposableTestDataPrefix);
@@ -95,6 +95,10 @@ function removeTestLanguages() {
         });
 
     ids.forEach((id) => {
+        if (!id) {
+            return;
+        }
+
         remove(id);
     });
 }

@@ -3,7 +3,7 @@ import { afterEach, beforeEach, describe, expect, test } from '@jest/globals';
 import { closeAll } from '../../service/db.js';
 import { init } from '../../service/setup.js';
 
-import { insert, getAllByWordId, remove } from './sentence.js';
+import { getAllByWordId, insert, remove } from './sentence.js';
 import { sentenceMock } from './sentence.mock.js';
 
 describe('Sentence model', () => {
@@ -20,7 +20,7 @@ describe('Sentence model', () => {
         });
 
         const { word_id } = insertFull;
-        const databaseSentences = getAllByWordId(word_id);
+        const databaseSentences = getAllByWordId(word_id) ?? [];
 
         expect(databaseSentences.length).toEqual(sentences.length);
     });
@@ -31,11 +31,17 @@ describe('Sentence model', () => {
     });
 });
 
-function removeTestSentences() {
+function removeTestSentences(): void {
     const { word_id: testWordId } = sentenceMock.insertFull;
-    const sentences = getAllByWordId(testWordId);
+    const sentences = getAllByWordId(testWordId) ?? [];
 
     sentences.forEach((sentence) => {
-        remove(sentence.id);
+        const { id } = sentence;
+
+        if (!id) {
+            return;
+        }
+
+        remove(id);
     });
 }

@@ -2,12 +2,14 @@ import { errors } from '../errors/errors.js';
 import { insert as insertLanguage } from '../models/language/language.js';
 import { insert as insertWord } from '../models/word/word.js';
 import { schema } from '../schema.js';
+import { Language } from '../types/language.js';
+import { Word } from '../types/word.js';
 
-import { dev, closeAll } from './db.js';
+import { closeAll, dev } from './db.js';
 
-const db = dev().test;
+const db = dev()?.test;
 
-const languages = [
+const languages: Language[] = [
     {
         iso_name: 'English',
         set_1: 'en',
@@ -16,6 +18,8 @@ const languages = [
         scope: 'Individual',
         type: 'Living',
         endonyms: ['English'],
+        other_names: [''],
+        notes: [''],
     },
     {
         iso_name: 'German',
@@ -25,24 +29,33 @@ const languages = [
         scope: 'Individual',
         type: 'Living',
         endonyms: ['Deutsch'],
+        other_names: [''],
+        notes: [''],
     },
 ];
 
-const testWord = {
+const testWord: Word = {
     language_id: 1,
     value: '##Test',
+    translations: [''],
+    definitions: [''],
+    classes: [''],
+    is_formal: false,
+    infinitive: '',
+    synonyms: [''],
+    antonyms: [''],
 };
 
 /** Create language table and seed with initial data */
-export function init() {
-    db.exec(schema.languages.create);
-    db.exec(schema.words.create);
-    db.exec(schema.sentences.create);
+export function init(): void {
+    db?.exec(schema.languages.create);
+    db?.exec(schema.words.create);
+    db?.exec(schema.sentences.create);
 
     languages.forEach((language) => {
         try {
             insertLanguage(language);
-        } catch (error) {
+        } catch (error: any) {
             /** ignore unique error in testing */
             if (error.code?.startsWith(errors.unique)) {
                 return;
@@ -52,7 +65,7 @@ export function init() {
 
     try {
         insertWord(testWord);
-    } catch (error) {
+    } catch (error: any) {
         /** ignore unique error in testing */
         if (error.code?.startsWith(errors.unique)) {
             return;

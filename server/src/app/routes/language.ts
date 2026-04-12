@@ -1,13 +1,14 @@
+import { FastifyInstance } from 'fastify';
 import {
+    createLanguage,
+    deleteLanguage,
     getAllLanguages,
     getLanguageById,
-    createLanguage,
     updateLanguage,
-    deleteLanguage,
 } from '../controllers/language.js';
 import { getAllWords } from '../controllers/word.js';
 
-export async function routes(fastify) {
+export async function routes(fastify: FastifyInstance): Promise<void> {
     fastify.get('/', getAllLanguages);
     fastify.get('/:id', getLanguageById);
     fastify.get('/:languageId/words', getAllWords);

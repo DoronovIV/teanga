@@ -5,7 +5,7 @@
  * @param params.object object to insert.
  * @returns id of the inserted object.
  */
-export function insert(params) {
+export function insert(params: { db: any; tableName: string; object: any }): number | string {
     const { db, tableName, object } = params;
 
     const wordKeys = Object.keys(object).join(', ');
@@ -28,7 +28,12 @@ export function insert(params) {
  * @param params.id id of the object to update.
  * @returns undefined.
  */
-export function update(params) {
+export function update(params: {
+    db: any;
+    tableName: string;
+    object: any;
+    id: number | string;
+}): void {
     const { db, tableName, object, id } = params;
 
     if (!id) {

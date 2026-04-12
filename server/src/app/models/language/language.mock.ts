@@ -1,4 +1,11 @@
-export const languageMock = {
+import { Language } from '../../types/language.js';
+
+export const languageMock: {
+    insert: Language;
+    insertPartial: Language;
+    insertIncomplete: any;
+    update: Language;
+} = {
     insert: {
         iso_name: '__TestInsert',
         set_1: 'ti',
@@ -7,8 +14,8 @@ export const languageMock = {
         scope: 'TestInsert',
         type: 'TestInsert',
         endonyms: ['TestInsert'],
-        other_names: null,
-        notes: null,
+        other_names: [''],
+        notes: [''],
     },
     insertPartial: {
         iso_name: '__TestInsertPartial',
@@ -18,6 +25,8 @@ export const languageMock = {
         scope: 'TestInsertPartial',
         type: 'TestInsertPartial',
         endonyms: ['TestInsertPartial'],
+        other_names: [''],
+        notes: [''],
     },
     insertIncomplete: {
         set_1: 't',
@@ -26,6 +35,8 @@ export const languageMock = {
         scope: 'TestInsertIncomplete',
         type: 'TestInsertIncomplete',
         endonyms: ['TestInsertIncomplete'],
+        other_names: [''],
+        notes: [''],
     },
     update: {
         iso_name: 'TestUpdate',
@@ -35,7 +46,7 @@ export const languageMock = {
         scope: 'TestUpdate',
         type: 'TestUpdate',
         endonyms: ['TestUpdate'],
-        other_names: null,
-        notes: null,
+        other_names: [''],
+        notes: [''],
     },
 };

@@ -1,5 +1,12 @@
-/* eslint-disable no-useless-escape */
-export const mock = {
+import { DbLanguage } from '../../types/db-language.js';
+import { Language } from '../../types/language.js';
+
+export const mock: {
+    endonyms: { appLanguage: Language; dbLanguage: DbLanguage };
+    otherNames: { appLanguage: Language; dbLanguage: DbLanguage };
+    both: { appLanguage: Language; dbLanguage: DbLanguage };
+    neither: { appLanguage: Language; dbLanguage: DbLanguage };
+} = {
     endonyms: {
         appLanguage: {
             iso_name: '__TestInsert',
@@ -9,8 +16,8 @@ export const mock = {
             scope: 'TestInsert',
             type: 'TestInsert',
             endonyms: ['TestInsert', 'AAAA'],
-            other_names: null,
-            notes: null,
+            other_names: [''],
+            notes: [''],
         },
         dbLanguage: {
             iso_name: '__TestInsert',
@@ -20,8 +27,8 @@ export const mock = {
             scope: 'TestInsert',
             type: 'TestInsert',
             endonyms: '[\"TestInsert\",\"AAAA\"]',
-            other_names: null,
-            notes: null,
+            other_names: '[\"\"]',
+            notes: '[\"\"]',
         },
     },
 
@@ -33,9 +40,9 @@ export const mock = {
             set_3: 'tsi',
             scope: 'TestInsert',
             type: 'TestInsert',
-            endonyms: null,
+            endonyms: [''],
             other_names: ['TEST INSERT', 'ABCDE', 'PPPP'],
-            notes: null,
+            notes: [''],
         },
         dbLanguage: {
             iso_name: '__TestInsert',
@@ -44,9 +51,9 @@ export const mock = {
             set_3: 'tsi',
             scope: 'TestInsert',
             type: 'TestInsert',
-            endonyms: null,
+            endonyms: '[\"\"]',
             other_names: '[\"TEST INSERT\",\"ABCDE\",\"PPPP\"]',
-            notes: null,
+            notes: '[\"\"]',
         },
     },
 
@@ -60,7 +67,7 @@ export const mock = {
             type: 'TestInsert',
             endonyms: ['TestInsert', 'AAAA'],
             other_names: ['TEST INSERT', 'ABCDE', 'PPPP'],
-            notes: null,
+            notes: [''],
         },
         dbLanguage: {
             iso_name: '__TestInsert',
@@ -71,7 +78,7 @@ export const mock = {
             type: 'TestInsert',
             endonyms: '[\"TestInsert\",\"AAAA\"]',
             other_names: '[\"TEST INSERT\",\"ABCDE\",\"PPPP\"]',
-            notes: null,
+            notes: '[\"\"]',
         },
     },
 
@@ -83,9 +90,9 @@ export const mock = {
             set_3: 'tsi',
             scope: 'TestInsert',
             type: 'TestInsert',
-            endonyms: null,
-            other_names: null,
-            notes: null,
+            endonyms: [''],
+            other_names: [''],
+            notes: [''],
         },
         dbLanguage: {
             iso_name: '__TestInsert',
@@ -94,9 +101,9 @@ export const mock = {
             set_3: 'tsi',
             scope: 'TestInsert',
             type: 'TestInsert',
-            endonyms: null,
-            other_names: null,
-            notes: null,
+            endonyms: '[\"\"]',
+            other_names: '[\"\"]',
+            notes: '[\"\"]',
         },
     },
 };

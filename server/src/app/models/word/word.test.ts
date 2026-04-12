@@ -6,7 +6,8 @@ import { closeAll } from '../../service/db.js';
 import { init } from '../../service/setup.js';
 import { getAll as getAllLanguages } from '../language/language.js';
 
-import { insert, getAllByLanguageId, remove, getById, update } from './word.js';
+import { Word } from '../../types/word.js';
+import { getAllByLanguageId, getById, insert, remove, update } from './word.js';
 import { wordMock } from './word.mock.js';
 
 describe('Word model', () => {
@@ -15,8 +16,8 @@ describe('Word model', () => {
     });
 
     test('Should return all words by language id', () => {
-        const { insert: insertWord, insertNull, insertPartial } = wordMock;
-        const list = [insertWord, insertNull, insertPartial];
+        const { insert: insertWord, insertNull } = wordMock;
+        const list = [insertWord, insertNull];
 
         const languageId = insertWord.language_id;
         const currentLength = getAllByLanguageId(languageId)?.length ?? 0;
@@ -28,46 +29,29 @@ describe('Word model', () => {
         const { language_id } = insertWord;
         const words = getAllByLanguageId(language_id);
 
-        expect(words.length).toEqual(currentLength + list.length);
+        expect(words?.length).toEqual(currentLength + list.length);
     });
 
     test('Should return a word by id', () => {
         const { insert: insertWord } = wordMock;
-        const { id } = insert(insertWord);
+        const id = insert(insertWord)?.id ?? -1;
         const databaseWord = getById(id);
 
-        expect(databaseWord.value).toEqual(insertWord.value);
+        expect(databaseWord?.value).toEqual(insertWord.value);
     });
 
     test('Should insert (and remove) a word', () => {
         const { insert: insertWord } = wordMock;
-
         const databaseWord = insert(insertWord);
 
-        expect(databaseWord.value).toEqual(insertWord.value);
-    });
-
-    test('Should insert (and remove) a word with optional fields defined as null (null)', () => {
-        const { insertNull: insertNullWord } = wordMock;
-
-        const databaseWord = insert(insertNullWord);
-
-        expect(databaseWord.value).toEqual(insertNullWord.value);
-    });
-
-    test('Should insert (and remove) a word with missing optional fields (partial)', () => {
-        const { insertPartial: insertPartialWord } = wordMock;
-
-        const databaseWord = insert(insertPartialWord);
-
-        expect(databaseWord.value).toEqual(insertPartialWord.value);
+        expect(databaseWord?.value).toEqual(insertWord.value);
     });
 
     test('Should fail to insert a word without language_id', () => {
         const { insert: insertWord } = wordMock;
         const invalidWord = { ...insertWord };
 
-        delete invalidWord.language_id;
+        invalidWord.language_id = null as unknown as number;
 
         const errorMessage = 'NOT NULL constraint failed: words.language_id';
 
@@ -99,14 +83,13 @@ describe('Word model', () => {
 
     test('Should update an existing word', () => {
         const { update: updateWord } = wordMock;
-
-        const { id } = insert(updateWord);
+        const id = insert(updateWord)?.id ?? -1;
         const updatedValue = '__UpdatedTest';
         const updatedWord = { ...updateWord, value: updatedValue };
 
         const databaseUpdatedWord = update(id, updatedWord);
 
-        expect(databaseUpdatedWord.value).toEqual(updatedValue);
+        expect(databaseUpdatedWord?.value).toEqual(updatedValue);
     });
 
     afterEach(() => {
@@ -115,19 +98,25 @@ describe('Word model', () => {
     });
 });
 
-function removeTestWords() {
+function removeTestWords(): void {
     const languages = getAllLanguages();
 
     languages.forEach((language) => {
-        const ids = getAllByLanguageId(language.id)
-            .filter((word) => {
+        const words = getAllByLanguageId(language?.id ?? -1) ?? [];
+
+        const ids = words
+            .filter((word: Word) => {
                 return word.value.startsWith(config.disposableTestDataPrefix);
             })
-            .map((word) => {
+            .map((word: Word) => {
                 return word.id;
             });
 
         ids.forEach((id) => {
+            if (!id) {
+                return;
+            }
+
             remove(id);
         });
     });

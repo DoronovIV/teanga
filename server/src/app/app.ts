@@ -19,9 +19,8 @@ export const fastify = Fastify({
 fastify.register(languageRoutes, { prefix: '/api/v1/languages' });
 fastify.register(wordRoutes, { prefix: '/api/v1/words' });
 
-fastify.addHook('onClose', async (instance, done) => {
+fastify.addHook('onClose', async () => {
     closeAll();
-    done();
 });
 
 fastify.setErrorHandler(handleError);
@@ -31,6 +30,6 @@ try {
     fastify.log.info(`Listening on port ${port}.`);
 } catch (err) {
     fastify.log.error(err);
-    // eslint-disable-next-line no-undef
+
     process.exit(errorExitCode);
 }

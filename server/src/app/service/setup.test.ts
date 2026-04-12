@@ -1,9 +1,9 @@
-import { beforeEach, afterEach, describe, expect, test } from '@jest/globals';
+import { afterEach, beforeEach, describe, expect, test } from '@jest/globals';
 
 import { closeAll, dev } from './db.js';
 import { init } from './setup.js';
 
-const db = dev().test;
+const db = dev()?.test;
 
 describe('Setup service', () => {
     beforeEach(() => {
@@ -29,10 +29,12 @@ describe('Setup service', () => {
     });
 });
 
-function tableExists(tableName) {
-    const result = db.prepare("SELECT sql FROM sqlite_master WHERE type='table'").all();
+function tableExists(tableName: string): boolean {
+    const result = db?.prepare("SELECT sql FROM sqlite_master WHERE type='table'").all();
 
-    return result.some((obj) => {
-        return obj.sql.includes(`CREATE TABLE ${tableName}`);
-    });
+    return (
+        result?.some((obj: any) => {
+            return obj.sql.includes(`CREATE TABLE ${tableName}`);
+        }) ?? false
+    );
 }

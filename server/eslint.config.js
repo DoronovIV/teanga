@@ -1,14 +1,21 @@
-import js from '@eslint/js';
-import { defineConfig } from 'eslint/config';
+import typescript from '@typescript-eslint/eslint-plugin';
+import typescriptParser from '@typescript-eslint/parser';
 import importPlugin from 'eslint-plugin-import';
+import { defineConfig } from 'eslint/config';
 
 export default defineConfig([
     {
-        plugins: { js, import: importPlugin },
-        extends: ['js/recommended'],
-        files: ['**/*.js'],
-        ignores: ['**/node_modules/', '**/.angular/', '**/dist/', '**/.git/'],
+        files: ['**/*.ts'],
+        languageOptions: {
+            parser: typescriptParser,
+        },
+        ignores: ['**/node_modules/', '**/dist/', '**/.git/'],
+        plugins: {
+            '@typescript-eslint': typescript,
+            import: importPlugin,
+        },
         rules: {
+            'max-classes-per-file': ['error', 1],
             'array-callback-return': 'error',
             'default-case': 'error',
             'default-case-last': 'error',
@@ -16,7 +23,6 @@ export default defineConfig([
             'no-empty': 'error',
             'no-inline-comments': 'error',
             'no-unused-vars': 'error',
-            'no-undef': 'error',
             'no-debugger': 'error',
             'no-duplicate-case': 'error',
             'no-duplicate-imports': 'error',
@@ -24,19 +30,99 @@ export default defineConfig([
             'no-var': 'error',
             'no-unassigned-vars': 'error',
             'prefer-const': 'error',
+            'no-magic-numbers': ['error', { ignore: [0, 1, -1] }],
             'no-return-assign': 'error',
             'no-ternary': 'error',
-            'no-magic-numbers': ['error', { ignore: [0, 1] }],
 
-            'import/order': [
+            '@typescript-eslint/no-unused-vars': 'error',
+            '@typescript-eslint/explicit-function-return-type': [
                 'error',
                 {
-                    groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
-                    'newlines-between': 'always',
-                    alphabetize: {
-                        order: 'asc',
-                        caseInsensitive: false,
+                    allowExpressions: true,
+                    allowTypedFunctionExpressions: true,
+                },
+            ],
+            '@typescript-eslint/explicit-member-accessibility': [
+                'error',
+                {
+                    accessibility: 'explicit',
+                    overrides: {
+                        constructors: 'no-public',
                     },
+                },
+            ],
+            '@typescript-eslint/no-empty-function': [
+                'error',
+                {
+                    allow: ['arrowFunctions', 'functions', 'methods'],
+                },
+            ],
+            'no-console': 'error',
+            'no-debugger': 'error',
+            'no-duplicate-imports': 'error',
+            'prefer-const': 'error',
+            eqeqeq: 'error',
+            // Use import plugin for better import sorting
+
+            // Disable the basic sort-imports rule in favor of import/order
+            'sort-imports': 'off',
+
+            /** custom rules */
+            '@typescript-eslint/member-ordering': [
+                'error',
+                {
+                    default: {
+                        memberTypes: [
+                            'public-decorated-field',
+                            'public-decorated-set',
+                            'public-decorated-get',
+                            'public-decorated-method',
+
+                            'public-static-field',
+                            'protected-static-field',
+                            'private-static-field',
+
+                            'public-instance-field',
+                            'protected-instance-field',
+                            'private-instance-field',
+
+                            'public-instance-get',
+                            'public-instance-set',
+
+                            'public-static-method',
+                            'protected-static-method',
+                            'private-static-method',
+
+                            'constructor',
+
+                            'public-instance-method',
+                            'protected-instance-method',
+                            'private-instance-method',
+                        ],
+                    },
+                },
+            ],
+            'padding-line-between-statements': [
+                'error',
+                {
+                    blankLine: 'always',
+                    prev: ['const', 'let', 'if'],
+                    next: '*',
+                },
+                {
+                    blankLine: 'always',
+                    prev: '*',
+                    next: ['if'],
+                },
+                {
+                    blankLine: 'always',
+                    prev: ['*'],
+                    next: ['return', 'break'],
+                },
+                {
+                    blankLine: 'any',
+                    prev: ['const', 'let'],
+                    next: ['const', 'let'],
                 },
             ],
         },
