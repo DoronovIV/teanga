@@ -1,8 +1,8 @@
 import { describe, expect, test } from '@jest/globals';
 
-import { mock } from './mock.js';
+import { mock } from './mock.ts';
 
-import { parseFrom, parseTo } from './parse.js';
+import { parseFrom as parseLanguageFrom, parseTo as parseLanguageTo } from './language.ts';
 
 const { endonyms, otherNames, both, neither } = mock;
 
@@ -11,10 +11,10 @@ describe('Parse service', () => {
         const parsed = 'appLanguage';
         const target = 'dbLanguage';
 
-        const parsedEndonyms = parseTo(endonyms[parsed]);
-        const parsedOtherNames = parseTo(otherNames[parsed]);
-        const parsedBoth = parseTo(both[parsed]);
-        const parsedNeither = parseTo(neither[parsed]);
+        const parsedEndonyms = parseLanguageTo(endonyms[parsed]);
+        const parsedOtherNames = parseLanguageTo(otherNames[parsed]);
+        const parsedBoth = parseLanguageTo(both[parsed]);
+        const parsedNeither = parseLanguageTo(neither[parsed]);
 
         expect(parsedEndonyms).toEqual(endonyms[target]);
         expect(parsedOtherNames).toEqual(otherNames[target]);
@@ -26,10 +26,10 @@ describe('Parse service', () => {
         const parsed = 'dbLanguage';
         const target = 'appLanguage';
 
-        const parsedEndonyms = parseFrom(endonyms[parsed]);
-        const parsedOtherNames = parseFrom(otherNames[parsed]);
-        const parsedBoth = parseFrom(both[parsed]);
-        const parsedNeither = parseFrom(neither[parsed]);
+        const parsedEndonyms = parseLanguageFrom(endonyms[parsed]);
+        const parsedOtherNames = parseLanguageFrom(otherNames[parsed]);
+        const parsedBoth = parseLanguageFrom(both[parsed]);
+        const parsedNeither = parseLanguageFrom(neither[parsed]);
 
         expect(parsedEndonyms).toEqual(endonyms[target]);
         expect(parsedOtherNames).toEqual(otherNames[target]);

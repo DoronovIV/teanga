@@ -1,9 +1,9 @@
 import { afterEach, beforeEach, describe, expect, test } from '@jest/globals';
 
-import { closeAll, dev } from './db.js';
-import { init } from './setup.js';
+import { closeAll, dev } from './db.ts';
+import { init } from './setup.ts';
 
-const db = dev()?.test;
+const db = dev().test;
 
 describe('Setup service', () => {
     beforeEach(() => {

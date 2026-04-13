@@ -1,14 +1,14 @@
 import { afterEach, beforeEach, describe, expect, test } from '@jest/globals';
 
-import { config } from '../../config.js';
-import { errors } from '../../errors/errors.js';
-import { closeAll } from '../../service/db.js';
-import { init } from '../../service/setup.js';
-import { getAll as getAllLanguages } from '../language/language.js';
+import { config } from '../../config.ts';
+import { errors } from '../../errors/errors.ts';
+import { closeAll } from '../../service/db.ts';
+import { init } from '../../service/setup.ts';
+import { getAll as getAllLanguages } from '../language/language.ts';
 
-import { Word } from '../../types/word.js';
-import { getAllByLanguageId, getById, insert, remove, update } from './word.js';
-import { wordMock } from './word.mock.js';
+import { Word } from '../../types/word.ts';
+import { wordMock } from './word.mock.ts';
+import { getAllByLanguageId, getById, insert, remove, update } from './word.ts';
 
 describe('Word model', () => {
     beforeEach(() => {

@@ -10,8 +10,8 @@ export const schema = {
                 scope TEXT NOT NULL,
                 type TEXT NOT NULL,
                 endonyms TEXT UNIQUE NOT NULL,
-                other_names TEXT DEFAULT NULL,
-                notes TEXT DEFAULT NULL
+                other_names TEXT NOT NULL,
+                notes TEXT NOT NULL
             );
         `,
         delete: 'DELETE FROM languages WHERE id = ?;',
@@ -25,13 +25,13 @@ export const schema = {
                 language_id INTEGER NOT NULL,
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
                 value TEXT UNIQUE NOT NULL,
-                translations TEXT DEFAULT NULL,
-                definition TEXT DEFAULT NULL,
-                class TEXT DEFAULT NULL,
+                translations TEXT NOT NULL,
+                definitions TEXT NOT NULL,
+                classes TEXT NOT NULL,
                 is_formal INTEGER DEFAULT 0,
-                infinitive TEXT DEFAULT NULL,
-                synonyms TEXT DEFAULT NULL,
-                antonyms TEXT DEFAULT NULL,
+                infinitive TEXT NOT NULL,
+                synonyms TEXT NOT NULL,
+                antonyms TEXT NOT NULL,
                 FOREIGN KEY (language_id) REFERENCES languages (id)
             );
         `,

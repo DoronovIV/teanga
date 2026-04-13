@@ -1,7 +1,7 @@
 import { schema } from '../../schema.js';
 import { insert as crudInsert, update as crudUpdate } from '../../service/crud.js';
 import { dev } from '../../service/db.js';
-import { parseFrom, parseTo } from '../../service/parse/parse.js';
+import { parseFrom, parseTo } from '../../service/parse/language.js';
 import { DbLanguage } from '../../types/db-language.js';
 import { Language } from '../../types/language.js';
 

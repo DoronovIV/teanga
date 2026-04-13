@@ -1,10 +1,10 @@
 import { afterEach, beforeEach, describe, expect, test } from '@jest/globals';
 
-import { closeAll } from '../../service/db.js';
-import { init } from '../../service/setup.js';
+import { closeAll } from '../../service/db.ts';
+import { init } from '../../service/setup.ts';
 
-import { getAllByWordId, insert, remove } from './sentence.js';
-import { sentenceMock } from './sentence.mock.js';
+import { sentenceMock } from './sentence.mock.ts';
+import { getAllByWordId, insert, remove } from './sentence.ts';
 
 describe('Sentence model', () => {
     beforeEach(() => {

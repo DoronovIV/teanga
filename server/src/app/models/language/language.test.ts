@@ -1,12 +1,12 @@
 import { afterEach, beforeEach, describe, expect, test } from '@jest/globals';
 
-import { config } from '../../config.js';
-import { errors } from '../../errors/errors.js';
-import { closeAll } from '../../service/db.js';
-import { init } from '../../service/setup.js';
+import { config } from '../../config.ts';
+import { errors } from '../../errors/errors.ts';
+import { closeAll } from '../../service/db.ts';
+import { init } from '../../service/setup.ts';
 
-import { getAll, getById, insert, remove, update } from './language.js';
-import { languageMock } from './language.mock.js';
+import { languageMock } from './language.mock.ts';
+import { getAll, getById, insert, remove, update } from './language.ts';
 
 const metaLanguage = {
     id: 1,

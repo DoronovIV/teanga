@@ -1,15 +1,13 @@
 import { DbLanguage } from '../../types/db-language.js';
 import { Language } from '../../types/language.js';
 
+import { transformStringFrom, transformStringTo } from './common.js';
+
 export function parseTo(language: Language): DbLanguage {
     const { endonyms, other_names, notes } = language;
-    const transformProperty = (prop: string[]): string => {
-        return JSON.stringify(prop);
-    };
-
-    const transformedEndonyms = transformProperty(endonyms);
-    const transformedOtherNames = transformProperty(other_names);
-    const transformedNotes = transformProperty(notes);
+    const transformedEndonyms = transformStringTo(endonyms);
+    const transformedOtherNames = transformStringTo(other_names);
+    const transformedNotes = transformStringTo(notes);
 
     return {
         ...language,
@@ -21,13 +19,9 @@ export function parseTo(language: Language): DbLanguage {
 
 export function parseFrom(language: DbLanguage): Language {
     const { endonyms, other_names, notes } = language;
-    const transformProperty = (prop: string): string[] => {
-        return JSON.parse(prop);
-    };
-
-    const transformedEndonyms = transformProperty(endonyms);
-    const transformedOtherNames = transformProperty(other_names);
-    const transformedNotes = transformProperty(notes);
+    const transformedEndonyms = transformStringFrom(endonyms);
+    const transformedOtherNames = transformStringFrom(other_names);
+    const transformedNotes = transformStringFrom(notes);
 
     return {
         ...language,
