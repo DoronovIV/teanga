@@ -30,6 +30,7 @@ export async function updateLanguage(request: FastifyRequest, reply: FastifyRepl
 export async function deleteLanguage(request: FastifyRequest, reply: FastifyReply): Promise<void> {
     const params: any = request.params;
     const { id } = params;
+    const result = remove(id);
 
-    reply.send(remove(id));
+    reply.send(result);
 }

@@ -5,8 +5,8 @@ import { errors } from '../../errors/errors.ts';
 import { closeAll } from '../../service/db.ts';
 import { init } from '../../service/setup.ts';
 
-import { languageMock } from './language.mock.ts';
 import { getAll, getById, insert, remove, update } from './language.ts';
+import { languageMock } from './mock.ts';
 
 const metaLanguage = {
     id: 1,

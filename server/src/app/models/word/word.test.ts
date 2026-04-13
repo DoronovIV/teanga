@@ -7,7 +7,7 @@ import { init } from '../../service/setup.ts';
 import { getAll as getAllLanguages } from '../language/language.ts';
 
 import { Word } from '../../types/word.ts';
-import { wordMock } from './word.mock.ts';
+import { wordMock } from './mock.ts';
 import { getAllByLanguageId, getById, insert, remove, update } from './word.ts';
 
 describe('Word model', () => {

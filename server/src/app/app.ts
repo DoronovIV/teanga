@@ -7,13 +7,22 @@ import { routes as wordRoutes } from './routes/word.js';
 import { closeAll } from './service/db.js';
 import { init } from './service/setup.js';
 
-init();
-
 const errorExitCode = 1;
 const { port } = config;
 
+init();
+
 export const fastify = Fastify({
-    logger: true,
+    logger: {
+        transport: {
+            target: 'pino-pretty',
+            options: {
+                translateTime: 'HH:MM:ss Z',
+                ignore: 'pid,hostname',
+                colorize: true,
+            },
+        },
+    },
 });
 
 fastify.register(languageRoutes, { prefix: '/api/v1/languages' });

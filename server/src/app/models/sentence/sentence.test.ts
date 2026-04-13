@@ -3,7 +3,7 @@ import { afterEach, beforeEach, describe, expect, test } from '@jest/globals';
 import { closeAll } from '../../service/db.ts';
 import { init } from '../../service/setup.ts';
 
-import { sentenceMock } from './sentence.mock.ts';
+import { sentenceMock } from './mock.ts';
 import { getAllByWordId, insert, remove } from './sentence.ts';
 
 describe('Sentence model', () => {

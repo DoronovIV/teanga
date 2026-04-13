@@ -47,7 +47,7 @@ export function update(id: number | string, language: Language): Language | null
 }
 
 export function remove(id: number | string): boolean {
-    db.prepare(schema.languages.delete).run(id);
+    const { changes } = db.prepare(schema.languages.delete).run(id);
 
-    return true;
+    return changes > 0;
 }
