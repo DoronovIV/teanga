@@ -1,11 +1,11 @@
 import { Controller, Get } from '@nestjs/common';
 import { LanguageService } from './language.service';
 
-@Controller()
+@Controller('languages')
 export class LanguageController {
     @Get()
-    public getHello(): string {
-        return this._languageService.getHello();
+    public async getLanguages(): Promise<any> {
+        return await this._languageService.getLanguages();
     }
 
     constructor(private readonly _languageService: LanguageService) {}
