@@ -25,6 +25,7 @@
             "@core/*": ["./src/app/core/*"],
             "@common/*": ["./src/app/common/*"],
             "@database/*": ["./src/app/database/*"],
+            "@model/*": ["./src/app/model/*"],
             "@modules/*": ["./src/app/modules/*"]
         }
     }

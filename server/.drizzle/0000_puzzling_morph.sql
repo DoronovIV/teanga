@@ -21,8 +21,7 @@ CREATE TABLE `sentences` (
 	`word_id` integer,
 	`created_at` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	`value` text NOT NULL,
-	`is_checked` integer DEFAULT 0 NOT NULL,
-	`is_validated` integer DEFAULT 0 NOT NULL,
+	`is_correct` integer DEFAULT NULL,
 	FOREIGN KEY (`word_id`) REFERENCES `words`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
@@ -35,7 +34,7 @@ CREATE TABLE `words` (
 	`definitions` text,
 	`classes` text,
 	`is_formal` integer DEFAULT 0 NOT NULL,
-	`lemma` text,
+	`lemmas` text,
 	`synonyms` text,
 	`antonyms` text,
 	FOREIGN KEY (`language_id`) REFERENCES `languages`(`id`) ON UPDATE no action ON DELETE no action

@@ -32,7 +32,7 @@ export const words = sqliteTable('words', {
     definitions: text('definitions', { mode: 'json' }).$type<string[]>(),
     classes: text('classes', { mode: 'json' }).$type<string[]>(),
     is_formal: int().notNull().default(0),
-    lemma: text(),
+    lemmas: text('lemmas', { mode: 'json' }).$type<string[]>(),
     synonyms: text('synonyms', { mode: 'json' }).$type<string[]>(),
     antonyms: text('antonyms', { mode: 'json' }).$type<string[]>(),
 });
@@ -44,6 +44,5 @@ export const sentences = sqliteTable('sentences', {
         .default(sql`CURRENT_TIMESTAMP`)
         .notNull(),
     value: text().notNull(),
-    is_checked: int().notNull().default(0),
-    is_validated: int().notNull().default(0),
+    is_correct: int().default(sql`NULL`),
 });

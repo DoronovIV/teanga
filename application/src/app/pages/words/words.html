@@ -2,7 +2,7 @@
     @if (language()) {
     <a class="word" routerLink="create">+</a>
     } @for (word of words(); track $index) {
-    <button class="word" routerLink="{{ word.id }}">{{ word.value }}</button>
+    <button class="word" routerLink="{{ word.id }}">{{ word.values[0] }}</button>
     } @empty { @if (!language()) {
     <div class="empty-message">Please select language to start.</div>
     } @else {

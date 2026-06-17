@@ -1,6 +1,3 @@
-import angular from '@angular-eslint/eslint-plugin';
-import angularTemplate from '@angular-eslint/eslint-plugin-template';
-import angularTemplateParser from '@angular-eslint/template-parser';
 import plugin from '@smarttools/eslint-plugin-rxjs';
 import typescript from '@typescript-eslint/eslint-plugin';
 import typescriptParser from '@typescript-eslint/parser';
@@ -23,7 +20,6 @@ export default defineConfig([
         },
         plugins: {
             '@typescript-eslint': typescript,
-            '@angular-eslint': angular,
             import: importPlugin,
             '@smarttools/rxjs': rxjs,
         },
@@ -139,15 +135,6 @@ export default defineConfig([
                 },
             ],
 
-            '@angular-eslint/component-selector': [
-                'error',
-                {
-                    type: ['element', 'attribute'],
-                    prefix: ['app', 'ui'],
-                    style: 'kebab-case',
-                },
-            ],
-
             '@smarttools/rxjs/no-subscribe-handlers': ['error'],
             '@smarttools/rxjs/finnish': [
                 'error',
@@ -158,23 +145,6 @@ export default defineConfig([
                     methods: false,
                 },
             ],
-        },
-    },
-
-    // Angular template files configuration
-    {
-        files: ['**/*.html'],
-        languageOptions: {
-            parser: angularTemplateParser,
-            ecmaVersion: 'latest',
-        },
-        plugins: {
-            '@angular-eslint/template': angularTemplate,
-        },
-        rules: {
-            '@angular-eslint/template/no-duplicate-attributes': 'error',
-            '@angular-eslint/template/no-negated-async': 'error',
-            '@angular-eslint/template/eqeqeq': 'error',
         },
     },
 ]);

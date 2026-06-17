@@ -3,5 +3,5 @@ export type SentenceModel = {
     word_id: number;
     created_at: string;
     value: string;
-    is_validated: boolean;
+    is_correct: boolean | null;
 };

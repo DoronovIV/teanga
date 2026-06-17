@@ -101,7 +101,7 @@ export class DatabaseSetupService {
                 definitions: [],
                 classes: [],
                 is_formal: 0,
-                lemma: '',
+                lemmas: [],
                 synonyms: [],
                 antonyms: [],
             });
