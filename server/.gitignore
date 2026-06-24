@@ -4,3 +4,4 @@
 **/.angular/
 **/db/
 **/*.db
+*.tsbuildinfo
