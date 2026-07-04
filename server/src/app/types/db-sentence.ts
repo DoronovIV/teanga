@@ -4,4 +4,5 @@ export type DbSentence = {
     created_at?: string;
     value: string;
     is_valid: number;
+    wasted: number;
 };

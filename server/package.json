@@ -7,7 +7,7 @@
     "type": "module",
     "main": "./src/index.js",
     "scripts": {
-        "start": "node ./dist/index.js",
+        "start": "tsc && node ./dist/index.js",
         "dev": "tsx watch ./src/index.ts",
         "setup": "tsx ./src/app/setup.ts",
         "build": "tsc",

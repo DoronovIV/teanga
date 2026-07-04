@@ -7,6 +7,7 @@ export type Word = {
     definitions: string[];
     classes: string[];
     is_formal: boolean;
+    wasted: boolean;
     lemmas: string[];
     synonyms: string[];
     antonyms: string[];

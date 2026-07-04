@@ -7,6 +7,15 @@ import { Sentence } from '../../types/sentence.js';
 
 const db = dev();
 
+export function getAll(): Sentence[] {
+    return db()
+        .prepare(schema.sentences.selectAll)
+        .all()
+        .map((sentence) => {
+            return parseFrom(sentence as DbSentence);
+        });
+}
+
 export function getAllByWordId(wordId: number | string): Sentence[] | null {
     return db()
         .prepare(schema.sentences.selectAllByWordId)
@@ -48,7 +57,7 @@ export function update(id: number | string, sentence: Sentence): Sentence | null
 }
 
 export function remove(id: number | string): boolean {
-    db().prepare(schema.sentences.delete).run(id);
+    const { changes } = db().prepare(schema.sentences.delete).run(id);
 
-    return true;
+    return changes > 0;
 }

@@ -7,6 +7,7 @@ export type DbWord = {
     definitions: string;
     classes: string;
     is_formal: number;
+    wasted: number;
     lemmas: string;
     synonyms: string;
     antonyms: string;
