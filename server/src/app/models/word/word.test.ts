@@ -7,9 +7,23 @@ import { getAll as getAllLanguages } from '../language/language.ts';
 
 import { Word } from '../../types/word.ts';
 import { wordMock } from './mock.ts';
-import { getAllByLanguageId, getById, insert, remove, update } from './word.ts';
+import { getAll, getAllByLanguageId, getById, insert, remove, update } from './word.ts';
 
 describe('Word model', () => {
+    test('Should return all words (w/o id)', () => {
+        const { insert: insertWord, insertNull } = wordMock;
+        const list = [insertWord, insertNull];
+
+        list.forEach((word) => {
+            insert(word);
+        });
+
+        const words = getAll();
+        const PermanentTestWordCount = 1;
+
+        expect(words?.length).toEqual(list.length + PermanentTestWordCount);
+    });
+
     test('Should return all words by language id', () => {
         const { insert: insertWord, insertNull } = wordMock;
         const list = [insertWord, insertNull];
@@ -88,11 +102,11 @@ describe('Word model', () => {
     });
 
     afterEach(() => {
-        removeTestWords();
+        _removeTestWords();
     });
 });
 
-function removeTestWords(): void {
+function _removeTestWords(): void {
     const languages = getAllLanguages();
 
     languages.forEach((language) => {
@@ -100,7 +114,7 @@ function removeTestWords(): void {
 
         const ids = words
             .filter((word: Word) => {
-                return word.forms.at(0)?.startsWith(config.disposableTestDataPrefix);
+                return _isDisposableWord(word);
             })
             .map((word: Word) => {
                 return word.id;
@@ -113,5 +127,11 @@ function removeTestWords(): void {
 
             remove(id);
         });
+    });
+}
+
+function _isDisposableWord(word: Word): boolean {
+    return word.forms.some((form) => {
+        return form.startsWith(config.disposableTestDataPrefix);
     });
 }

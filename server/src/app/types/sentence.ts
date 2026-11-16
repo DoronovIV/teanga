@@ -4,4 +4,5 @@ export type Sentence = {
     created_at?: string;
     value: string;
     is_valid: boolean;
+    wasted: boolean;
 };

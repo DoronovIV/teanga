@@ -7,6 +7,15 @@ import { Word } from '../../types/word.js';
 
 const db = dev();
 
+export function getAll(): Word[] {
+    return db()
+        .prepare(schema.words.selectAll)
+        .all()
+        .map((word) => {
+            return parseFrom(word as DbWord);
+        });
+}
+
 export function getAllByLanguageId(languageId: number | string): Word[] | null {
     return db()
         .prepare(schema.words.selectAllByLanguageId)
@@ -54,7 +63,7 @@ export function update(id: number | string, word: Word): Word | null {
 }
 
 export function remove(id: number | string): boolean {
-    db().prepare(schema.words.delete).run(id);
+    const { changes } = db().prepare(schema.words.delete).run(id);
 
-    return true;
+    return changes > 0;
 }

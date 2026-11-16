@@ -29,6 +29,7 @@ export const schema = {
                 definitions TEXT NOT NULL,
                 classes TEXT NOT NULL,
                 is_formal INTEGER DEFAULT 0,
+                wasted INTEGER DEFAULT 0,
                 lemmas TEXT NOT NULL,
                 synonyms TEXT NOT NULL,
                 antonyms TEXT NOT NULL,
@@ -36,6 +37,7 @@ export const schema = {
             );
         `,
         delete: 'DELETE FROM words WHERE id = ?;',
+        selectAll: 'SELECT * FROM words;',
         selectAllByLanguageId: 'SELECT * FROM words WHERE language_id = ?;',
         selectById: 'SELECT * FROM words WHERE id = ?;',
     },
@@ -47,10 +49,12 @@ export const schema = {
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
                 value TEXT UNIQUE NOT NULL,
                 is_valid INTEGER DEFAULT 0,
+                wasted INTEGER DEFAULT 0,
                 FOREIGN KEY (word_id) REFERENCES words (id)
             );
         `,
         delete: 'DELETE FROM sentences WHERE id = ?;',
+        selectAll: 'SELECT * FROM sentences;',
         selectAllByWordId: 'SELECT * FROM sentences WHERE word_id = ?;',
         selectById: 'SELECT * FROM sentences WHERE id = ?;',
     },

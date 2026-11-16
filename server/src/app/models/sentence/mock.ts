@@ -14,11 +14,13 @@ export const sentenceMock: {
         word_id,
         value: '__This is a sentence.',
         is_valid: false,
+        wasted: false,
     },
     insertNull: {
         word_id,
         value: '__This is a sentence with null fields.',
         is_valid: false,
+        wasted: false,
     },
     insertPartial: {
         word_id,
@@ -29,10 +31,12 @@ export const sentenceMock: {
         word_id,
         value: '__This is a sentence.',
         is_valid: false,
+        wasted: false,
     },
     update: {
         word_id,
         value: '__This is an updated sentence.',
         is_valid: false,
+        wasted: false,
     },
 };
