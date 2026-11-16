@@ -1,7 +1,9 @@
+@import 'mixins.scss';
+
 .sidebar {
     height: 100%;
     display: flex;
-    padding: 10px 20px;
+    padding: 10px;
 
     border-right: 1px solid var(--text-color);
 
@@ -24,9 +26,12 @@
     width: 24px;
     height: 24px;
 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     border: none;
-    border-radius: 6px;
-    background-color: red;
+    background-color: transparent;
 
     cursor: pointer;
 }
@@ -49,4 +54,6 @@
 
     background: var(--bg-color);
     color: var(--text-color);
+
+    @include theme-transition;
 }
