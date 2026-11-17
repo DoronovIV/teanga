@@ -5,7 +5,5 @@
     <button class="word" routerLink="{{ word.id }}">{{ word.value }}</button>
     } @empty { @if (!language()) {
     <div class="empty-message">Please select language to start.</div>
-    } @else {
-    <div class="empty-message">Unable to fetch words.</div>
     } }
 </div>

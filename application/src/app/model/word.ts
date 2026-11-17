@@ -1,12 +1,12 @@
 export type WordModel = {
-    id: number;
-    language_id: number;
+    id?: number;
+    language_id?: number;
     created_at: string;
     value: string;
     translations: string[];
     definitions: string[];
     classes: string[];
-    is_format: boolean;
+    is_formal: boolean;
     infinitive: string;
     synonyms: string[] | null;
     antonyms: string[] | null;
